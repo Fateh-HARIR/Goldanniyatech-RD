@@ -5,10 +5,7 @@
  * Script: Dynamic Material Randomizer         *
  *                                             *
  * * * * * * * * * * * * * * * * * * * * * * * */
-
-// Script to dynamically change material color
-// Limit: changing one material
-
+ 
 using System; 
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +13,10 @@ using System.Collections.Generic;
 using UnityEditor; 
 using UnityEngine;
 
+/// <summary>
+/// The Dynamic Material Randomizer base class can change in real-time a material color. 
+/// It's currently limited to one material. 
+/// </summary>
 public class DynaMatRandomizer : MonoBehaviour
 {
     // Serialized Variables
@@ -72,8 +73,9 @@ public class DynaMatRandomizer : MonoBehaviour
 }
 
 
-
-// Dynamically change variables in the inspector when changing the Randomizer Method
+/// <summary>
+///  The DynaMatRandomizerEditor class is dynamically changing variables in the inspector when changing the Randomizer Method. 
+/// </summary> 
 [CustomEditor(typeof(DynaMatRandomizer)), CanEditMultipleObjects]
 public class DynaMatRandomizerEditor : Editor
 {
