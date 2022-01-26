@@ -1,24 +1,35 @@
-# Unity Laboratory
+# :video_game: GameDev 3D Game Engines Scripting Laboratory :video_game:
 
-**Overview**
-This is a collection of various C# scripts to drag and drop in your Unity editor. Each script has been tested with the specific Unity *version* mentioned below, and should be working right off the bat. 
+Collection of various scripts for multiple Game Engines, with a focus on 3D games. 
+Each script has been tested with the *version* mentioned below, and should be working right off the bat. 
  
-➡️ **Unity Version used**: 2019.3.0f6
+**3D Game Engines**
 
-➡️ **Symbols Meaning:** ✔️ Working Script 🔵 In Development 🔴 Broken Script
+:trophy: **Godot Engine:**
 
-## Scripts Description ## 
+:trophy: **Unity Engine:**
 
-### CSharp_GeneralScripts ###
+:trophy: **Unreal Engine:**
+
+## :star2: Godot Engine :star2:
+
+## :star2: Unity Engine :star2:
+
+### C# (Unity, C Sharp)  
+:question: How to import your script: just drag them into your project
+
+#### General Scripts 
 
 **🔵 MailManager**
 
 **🔵 TrafficLights**
 
-### VehiclesDriving ###
+#### VehiclesDriving
 
 **🔵 VehicleEngine**
 
 **🔵 VehicleSimpleEngine**
 
-A simplified version to drive a vehicle.
+## :star2: Unreal Engine :star2:
+
+### General Scripts
