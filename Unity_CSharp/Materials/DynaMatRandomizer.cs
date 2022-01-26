@@ -1,4 +1,4 @@
-﻿/* * * * * * * * * * * * * * * * * * * * * * * * 
+/* * * * * * * * * * * * * * * * * * * * * * * * 
  *           UNITY LABORATORY PROJECT          *
  *                                             *
  * Author: Yoann AMAR ASSOULINE                * 
