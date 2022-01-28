@@ -1,30 +1,61 @@
-# :video_game: GameDev 3D Game Engines Scripting Laboratory :video_game:
+# :video_game: :test_tube: GameDev 3D Game Engines Laboratory :test_tube: :video_game:
 
-Collection of various scripts for multiple Game Engines, with a focus on 3D games. 
+Collection of various scripts and prototypes for multiple Game Engines, Rendering Engines and 3D API. Everything is made for research & educational purposes. Feel free to learn or re-use these prototypes. 
+
 Each script has been tested with the *version* mentioned below, and should be working right off the bat. 
  
-**3D Game Engines**
+**Flexible 3D Game Engines**
 
-:trophy: **Godot Engine:**
+:star2: **Godot Engine**
 
-:trophy: **Unity Engine:**
+:star2: **Unity Engine**
 
-:trophy: **Unreal Engine:**
+:star2: **Unreal Engine**
 
-## :star2: Godot Engine :star2:
+**Low-Level Game Engines & Rendering Engines**
 
-## :star2: Unity Engine :star2:
+:minidisc: **Irrlicht Engine**
 
-### C# (Unity, C Sharp)  
+:minidisc: **JMonkey**
+
+:minidisc: **Ogre3D**
+
+:minidisc: **Panda3D**
+
+**API**
+
+:gear: **DirectX**
+
+:gear: **OpenGL**
+
+:gear: **Vulkan**
+
+# :gear: DirectX API :gear: 
+
+# :star2: Godot Engine :star2:
+
+# :minidisc: Irrlicht :minidisc:
+
+# :minidisc: JMonkey :minidisc: 
+
+# :minidisc: Ogre3D :minidisc:
+
+# :gear: OpenGL API :gear: 
+
+# :minidisc: Panda3D :minidisc:
+
+# :star2: Unity Engine :star2:
+
+## C# (Unity, C Sharp)  
 :question: How to import your script: just drag them into your project
 
-#### General Scripts 
+### General Scripts 
 
 **🔵 MailManager**
 
 **🔵 TrafficLights**
 
-#### VehiclesDriving
+### VehiclesDriving
 
 **🔵 VehicleEngine**
 
@@ -33,3 +64,5 @@ Each script has been tested with the *version* mentioned below, and should be wo
 ## :star2: Unreal Engine :star2:
 
 ### General Scripts
+
+# :gear: Vulkan API :gear: 
