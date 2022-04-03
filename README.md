@@ -9,7 +9,7 @@ Each element has been tested with the *version* mentioned below, and should be w
 
 **Software Version**
 
-:gem: Adobe Photoshop CC 2022 (Version 23)
+:gem: Adobe Photoshop CC 2022 - Version 23
 
 :gem: Adobe Substance 3D Painter 7
 
