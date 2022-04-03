@@ -1,68 +1,20 @@
-# :video_game: :test_tube: GameDev 3D Game Engines Laboratory :test_tube: :video_game:
+[//]: # (Yoann AMAR ASSOULINE - GOLDANNIYATECH)
+[//]: # (https://github.com/Goldanniyatech/Game-Development_Lab) 
 
-Collection of various scripts and prototypes for multiple Game Engines, Rendering Engines and 3D API. Everything is made for research & educational purposes. Feel free to learn or re-use these prototypes. 
+# :video_game: :test_tube: Game Development Laboratory :test_tube: :video_game:
 
-Each script has been tested with the *version* mentioned below, and should be working right off the bat. 
- 
-**Flexible 3D Game Engines**
+Welcome to the Game Development Laboratory! This is a collection of various scripts, prototypes and textured 3D models made with Unreal Engine, Blender, Photoshop and Substance 3D Painter. Everything is made for research & educational purposes. Feel free to learn or re-use this content in any of your (commercial) projects (as long as you credit me). 
 
-:star2: **Godot Engine**
+Each element has been tested with the *version* mentioned below, and should be working right off the bat. 
 
-:star2: **Unity Engine**
+**Software Version**
 
-:star2: **Unreal Engine**
+:gem: Adobe Photoshop CC 2022 (Version 23)
 
-**Low-Level Game Engines & Rendering Engines**
+:gem: Adobe Substance 3D Painter 7
 
-:minidisc: **Irrlicht Engine**
+:gem: Blender 3
 
-:minidisc: **JMonkey**
+:gem: Unreal Engine 5.0 Preview
 
-:minidisc: **Ogre3D**
-
-:minidisc: **Panda3D**
-
-**API**
-
-:gear: **DirectX**
-
-:gear: **OpenGL**
-
-:gear: **Vulkan**
-
-# :gear: DirectX API :gear: 
-
-# :star2: Godot Engine :star2:
-
-# :minidisc: Irrlicht :minidisc:
-
-# :minidisc: JMonkey :minidisc: 
-
-# :minidisc: Ogre3D :minidisc:
-
-# :gear: OpenGL API :gear: 
-
-# :minidisc: Panda3D :minidisc:
-
-# :star2: Unity Engine :star2:
-
-## C# (Unity, C Sharp)  
-:question: How to import your script: just drag them into your project
-
-### General Scripts 
-
-**🔵 MailManager**
-
-**🔵 TrafficLights**
-
-### VehiclesDriving
-
-**🔵 VehicleEngine**
-
-**🔵 VehicleSimpleEngine**
-
-## :star2: Unreal Engine :star2:
-
-### General Scripts
-
-# :gear: Vulkan API :gear: 
+## :star2: Unreal Engine Prototype :star2:
