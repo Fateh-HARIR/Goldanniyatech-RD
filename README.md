@@ -13,8 +13,8 @@ Each element has been tested with the *version* mentioned below, and should be w
 
 :gem: Adobe Substance 3D Painter 7
 
-:gem: Blender 3 (Python)
+:gem: Blender 3 
 
-:gem: Unreal Engine 5.0 Preview (Blueprints, C++ & Verse)
+:gem: Unreal Engine 5.0.0 (Blueprints and C++)
 
-## :star2: Unreal Engine Prototype :star2:
+## :star2: Unreal Engine Prototype A :star2:
