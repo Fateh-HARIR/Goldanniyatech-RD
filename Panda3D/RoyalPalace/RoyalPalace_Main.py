@@ -19,27 +19,9 @@ from pandac.PandaModules import WindowProperties
 
 from direct.gui.DirectGui import * 
 
-# RoyalPalace Imports 
+# RoyalPalace Imports ()
+import Royal_DataManager 
 
-
-# RoyalPalace Main Dictionary
-RoyalData = {
-    "Title" : "Royal Palace Panda3D Micro-Game", 
-    "Main Title" : "Royal Palace", 
-    "Game Version" : 1.0,
-    "Panda3D Version" : PandaSystem.getVersionString(), 
-    "Author" : "Yoann AMAR ASSOULINE", 
-    "Company" : "Goldanniyatech"
-}
-
-# Royal Display Dictionary
-RoyalDisplayData = {
-    "Full Screen" : False,
-    "Resolution HD+" :  (1600, 900), 
-    "Resolution FHD" : (1920, 1080), 
-    "Resolution QHD" : (2560, 1440), 
-    "Resolution UHD" : (3840, 2160)
-}
 
 class RoyalPalaceMain(ShowBase): 
     """ Main class """
@@ -53,14 +35,16 @@ class RoyalPalaceMain(ShowBase):
 
         # Panda3d Window Properties 
         # ⚠️ Bug : display is changing in real-time and not initialized in HD+
+        RoyalWinTitle = str(Royal_DataManager.RoyalData["Main Title"] + " Version " + Royal_DataManager.RoyalData["Game Version"])
+
         RoyalWinProperties = WindowProperties() 
-        RoyalWinProperties.setSize(RoyalDisplayData["Resolution HD+"])
-        RoyalWinProperties.setTitle (RoyalData["Main Title"] + " Version " + str(RoyalData["Game Version"]))
+        RoyalWinProperties.setSize(Royal_DataManager.RoyalDisplayData["Resolution HD+"])
+        RoyalWinProperties.setTitle (RoyalWinTitle)
 
         self.win.requestProperties(RoyalWinProperties) 
 
         # on-screen title 
-        self.title = OnscreenText(text=RoyalData["Title"], parent=self.a2dBottomCenter, fg=(1, 1, 1, 1), pos=(0, .1), )
+        self.title = OnscreenText(text=Royal_DataManager.RoyalData["Title"], parent=self.a2dBottomCenter, fg=(1, 1, 1, 1), pos=(0, .1), )
 
         # Mouse Parameters
         self.disableMouse()
@@ -74,6 +58,7 @@ class RoyalPalaceMain(ShowBase):
         # Calling self class methods
         self.LoadModels()
 
+    # ⚠️ I will transform this generic LoadModels into a method to directly load model, such as LoadModel(path, static/ skeletal, scale, etc.) with optional parameters. To Do only when models are imported from Blender.
     def LoadModels(self): 
         """ Loading every 3D model to display the menu """
         pass 
