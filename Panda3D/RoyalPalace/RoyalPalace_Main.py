@@ -1,9 +1,14 @@
+#!/usr/bin/env python3
+
+
+__author__ = "test" 
 
 
 # Builtin Imports
 import os
 import sys
 import platform
+import pathlib
 import math 
 
 # Panda3D imports 
@@ -15,7 +20,7 @@ from panda3d.core import PandaSystem
 
 from panda3d.core import AmbientLight, DirectionalLight
 from panda3d.core import Vec4
-from pandac.PandaModules import WindowProperties 
+from panda3d.core import WindowProperties 
 
 from direct.gui.DirectGui import * 
 
@@ -33,18 +38,20 @@ class RoyalPalaceMain(ShowBase):
 
         ShowBase.__init__(self)
 
+        # Royal Palace main data class
+        RoyalData = Royal_DataManager.RC_RoyalData
+
         # Panda3d Window Properties 
         # ⚠️ Bug : display is changing in real-time and not initialized in HD+
-        RoyalWinTitle = str(Royal_DataManager.RoyalData["Main Title"] + " Version " + Royal_DataManager.RoyalData["Game Version"])
 
         RoyalWinProperties = WindowProperties() 
         RoyalWinProperties.setSize(Royal_DataManager.RoyalDisplayData["Resolution HD+"])
-        RoyalWinProperties.setTitle (RoyalWinTitle)
+        RoyalWinProperties.setTitle (RoyalData.get_ProjectTitle())
 
         self.win.requestProperties(RoyalWinProperties) 
 
         # on-screen title 
-        self.title = OnscreenText(text=Royal_DataManager.RoyalData["Title"], parent=self.a2dBottomCenter, fg=(1, 1, 1, 1), pos=(0, .1), )
+        self.title = OnscreenText(text=RoyalData.get_RWindowTitle(), parent=self.a2dBottomCenter, fg=(1, 1, 1, 1), pos=(0, .1), )
 
         # Mouse Parameters
         self.disableMouse()
@@ -57,6 +64,7 @@ class RoyalPalaceMain(ShowBase):
  
         # Calling self class methods
         self.LoadModels()
+        self.Commands()
 
     # ⚠️ I will transform this generic LoadModels into a method to directly load model, such as LoadModel(path, static/ skeletal, scale, etc.) with optional parameters. To Do only when models are imported from Blender.
     def LoadModels(self): 
@@ -81,12 +89,18 @@ class RoyalPalaceMain(ShowBase):
 
         # Playable Character
         # 
- 
+
+    def Commands(self): 
+        """ List of commands in the game (Keyboard only, at the moment) """
+        
+        # Escape to quit the game
+        self.accept("escape", sys.exit)
+        
 # Launching the RoyalPalace Panda3D Application
 
 if __name__ == "__main__": 
     RoyalPalaceApp = RoyalPalaceMain() 
     RoyalPalaceApp.run() 
+
 else: 
     print("RoyalPalaceMain is not __main__")
-

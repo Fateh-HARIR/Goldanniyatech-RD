@@ -6,21 +6,13 @@ import sys
 import platform
 import math 
 
-# Panda3D imports 
+from enum import Enum 
+
+# Panda3D imports
 from direct.showbase.ShowBase import ShowBase 
 
 # from pandac.PandaModule import PandaSystem # Old version used for PandaSystem.getVersionString()
 from panda3d.core import PandaSystem
-
-# RoyalPalace Main Dictionary
-RoyalData = {
-    "Title" : "Royal Palace Panda3D Micro-Game", 
-    "Main Title" : "Royal Palace", 
-    "Game Version" : "1.0",
-    "Panda3D Version" : "test", # PandaSystem.getVersionString(), 
-    "Author" : "Yoann AMAR ASSOULINE", 
-    "Company" : "Goldanniyatech"
-}
 
 # Royal Display Dictionary
 RoyalDisplayData = {
@@ -32,19 +24,39 @@ RoyalDisplayData = {
 }
 
 
-class RoyalDataC (): 
+class RC_RoyalData: 
     """ Main Data used in RoyalData. These are not gameplay data. """
+
+    # Class attributes
+    RGameTitle = "Royal Palace"
+    RWindowTitle = "Royal Palace Panda3D Micro-Game"
+    RGameVersion = 1.0
+    RPanda3dVersion = PandaSystem.getVersionString()
+    RAuthor = "Yoann AMAR ASSOULINE"
+    RCompany = "Goldanniyatech"
+
+    RProjectTitle = RWindowTitle + " " + str(RGameVersion)
 
     def __new__(cls): 
         pass
 
     def __init__(self): 
-        pass
+        self.RWindowTitle = "Royal Palace Panda3D Micro-Game"
 
-class RoyalProfileData (): 
+    @classmethod
+    def get_RWindowTitle(cls):
+        return cls.RWindowTitle
+
+    @classmethod
+    def get_ProjectTitle(cls): 
+        return cls.RProjectTitle
+
+
+class RC_RoyalProfileStats: 
     """ Profile Data for Players """
 
-class RoyalGameplayData (): 
+
+class RC_RoyalGameplayStats: 
     """ Gameplay Data """
 
     def __new__(cls): 
