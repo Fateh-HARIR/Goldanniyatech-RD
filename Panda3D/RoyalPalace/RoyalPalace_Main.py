@@ -1,15 +1,37 @@
 #!/usr/bin/env python3
 
+__author__ = "Yoann AMAR ASSOULINE" 
 
-__author__ = "test" 
+''' 
+Royal Palace Main Module Doc
 
+Project Coding Conventions: 
+🎫 Variables start with "R"
+🎫 Classes start with "Royal_" (except the main class, "RoyalPalace_" )
+🎫 Collections start with "RC" 
+🎫 Commands methods start with "RKey_" except the method defining keys (which should be "RCommands")
+
+Versions support: 
+Although some code is kept (& put as commentaries) for research purposes, only the following tools are supported: 
+- Panda3D  
+
+Packages 
+- Panda3D (1.10.12)
+- requests (2.28.1)
+
+Export/ Import 3D Meshes 
+- I export from Blender to gltf & convert it to BAM.
+
+'''
 
 # Builtin Imports
+from genericpath import isfile
 import os
 import sys
 import platform
 import pathlib
 import math 
+import subprocess 
 
 # Panda3D imports 
 from direct.showbase.ShowBase import ShowBase 
@@ -21,14 +43,23 @@ from panda3d.core import PandaSystem
 from panda3d.core import AmbientLight, DirectionalLight
 from panda3d.core import Vec4
 from panda3d.core import WindowProperties 
+from panda3d.core import Material
 
 from direct.gui.DirectGui import * 
 
 # RoyalPalace Imports ()
 import Royal_DataManager 
 
+# Royal Palace Global Variables 
+RDebugConfig = True
+RDebugClearTerminal = True
+RDebugWriteData = True
+RDebugCleanFiles = True 
 
-class RoyalPalaceMain(ShowBase): 
+# Royal Palace main data class
+RoyalData = Royal_DataManager.Royal_Data
+
+class RoyalPalace_Main(ShowBase): 
     """ Main class """
 
     def __new__(cls): 
@@ -38,15 +69,12 @@ class RoyalPalaceMain(ShowBase):
 
         ShowBase.__init__(self)
 
-        # Royal Palace main data class
-        RoyalData = Royal_DataManager.RC_RoyalData
-
         # Panda3d Window Properties 
-        # ⚠️ Bug : display is changing in real-time and not initialized in HD+
+        # ⚠️ Bug : display starts from 640*480, and isn't properly initialized in HD+
 
         RoyalWinProperties = WindowProperties() 
-        RoyalWinProperties.setSize(Royal_DataManager.RoyalDisplayData["Resolution HD+"])
-        RoyalWinProperties.setTitle (RoyalData.get_ProjectTitle())
+        RoyalWinProperties.setSize(Royal_DataManager.RCDisplayData["Resolution HD+"])
+        RoyalWinProperties.setTitle (RoyalData.get_RProjectTitle())
 
         self.win.requestProperties(RoyalWinProperties) 
 
@@ -62,21 +90,62 @@ class RoyalPalaceMain(ShowBase):
         # Camera
         self.camera.setPos(0, 0, 0)
  
-        # Calling self class methods
-        self.LoadModels()
-        self.Commands()
+        # Calling DebugData class method (only if RDebugConfig variable is True)
+        self.DebugData() 
 
-    # ⚠️ I will transform this generic LoadModels into a method to directly load model, such as LoadModel(path, static/ skeletal, scale, etc.) with optional parameters. To Do only when models are imported from Blender.
-    def LoadModels(self): 
+        # Calling self class methods
+        self.LoadRoyalLevel()
+        self.RCommands()
+
+    def DebugData(self):
+        """ Displaying Debug Data """
+
+        # Writing Debug Data to Text file
+        if RDebugWriteData == True: 
+            DebugFile = open("RoyalPalace_DebugData.txt", "w")
+            sys.stdout = DebugFile 
+
+        # Clean terminal (checking Global Variable RDebugClearTerminal)
+        if RDebugClearTerminal == True: 
+            if os.name == 'nt': 
+                os.system('cls')
+            else: 
+                'clear' 
+
+        # System information
+        print("SYSTEM INFO")
+        print("OS: " + os.name)
+        print("Python Version: " + platform.python_version())
+        print("\n")
+
+        # Game version 
+        print("ROYAL PALACE INFO")
+        print("Panda 3d Version: " + RoyalData.get_RPanda3dVersion())
+
+        print(RoyalData.get_RProjectTitle())
+        print("\n")
+
+        DebugFile.close()
+
+        # Writing back to console
+        if RDebugWriteData == True: 
+            sys.stdout = sys.__stdout__
+
+    def LoadRoyalLevel(self): 
         """ Loading every 3D model to display the menu """
         pass 
 
         # Environment 
-        # self.RoyalScene = self.loader.loadModel("Path")
-        # self.RoyalScene.reparentTo(self.render)
-        # self.RoyalScene.setScale(1, 1, 1) 
-        # self.RoyalScene.setPos(0, 0, 0)  
+        self.RoyalScene = self.loader.loadModel("test.bam")
+        self.RoyalScene.reparentTo(self.render)
+        self.RoyalScene.setScale(0.8, 0.8, 0.8) 
+        self.RoyalScene.setPos(0, 0, 0)  
 
+        # Temporary material 
+        TestMaterial = Material()
+        TestMaterial.setShininess(6.0)
+        TestMaterial.setAmbient((0, 0, 1, 1))
+        
         # Lights 
 
         RoyalAmbientLight = AmbientLight("ambient light") 
@@ -90,17 +159,35 @@ class RoyalPalaceMain(ShowBase):
         # Playable Character
         # 
 
-    def Commands(self): 
+    # ⚠️ I will write a method to simplify model loading, such as ModelLoader(path, static/ skeletal, scale, etc.) with optional parameters (static should be default). To Do only when models are imported from Blender.
+    def ModelLoader(self): 
+        """ Documentation """
+        pass
+
+    def RCommands(self): 
         """ List of commands in the game (Keyboard only, at the moment) """
         
         # Escape to quit the game
-        self.accept("escape", sys.exit)
+        self.accept("escape", self.RKey_QuitRoyal)
         
+
+    def RKey_QuitRoyal(self): 
+        self.CleanUp() 
+        sys.exit()
+
+    def CleanUp(self): 
+        print("Cleaning up Royal Palace Data")
+        
+        # Deleting Debug Text file
+        if RDebugCleanFiles == True: 
+            if os.path.isfile("RoyalPalace_DebugData.txt"): 
+                os.remove("RoyalPalace_DebugData.txt")
+
 # Launching the RoyalPalace Panda3D Application
 
 if __name__ == "__main__": 
-    RoyalPalaceApp = RoyalPalaceMain() 
+    RoyalPalaceApp = RoyalPalace_Main() 
     RoyalPalaceApp.run() 
 
 else: 
-    print("RoyalPalaceMain is not __main__")
+    print("RoyalPalace is not __main__")
