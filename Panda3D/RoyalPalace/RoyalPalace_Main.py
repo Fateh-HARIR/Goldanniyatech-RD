@@ -33,6 +33,9 @@ import pathlib
 import math 
 import subprocess 
 
+# Numpy import
+import numpy
+
 # Panda3D imports 
 from direct.showbase.ShowBase import ShowBase 
 from direct.actor import Actor 
@@ -50,11 +53,13 @@ from direct.gui.DirectGui import *
 # RoyalPalace Imports ()
 import Royal_DataManager 
 
-# Royal Palace Global Variables 
+# Royal Palace Debug Global Variables 
 RDebugConfig = True
 RDebugClearTerminal = True
 RDebugWriteData = True
 RDebugCleanFiles = True 
+
+RDebugPanda3dContent = True # using asset from Panda3d SDK instead of my own asset (copy asset in ). ⚠️ Many features will NOT be available in this mode. 
 
 # Royal Palace main data class
 RoyalData = Royal_DataManager.Royal_Data
@@ -94,7 +99,10 @@ class RoyalPalace_Main(ShowBase):
         self.DebugData() 
 
         # Calling self class methods
-        self.LoadRoyalLevel()
+        if RDebugPanda3dContent == True: 
+            self.ModelLoader("panda-model.egg.pz")
+        else: 
+            self.LoadRoyalLevel()
         self.RCommands()
 
     def DebugData(self):
@@ -117,6 +125,13 @@ class RoyalPalace_Main(ShowBase):
         print("OS: " + os.name)
         print("Python Version: " + platform.python_version())
         print("\n")
+
+        print("AUTHOR INFO")
+        print("Website: ", RoyalData.get_RWebsite())
+
+        # Script information 
+        print("Python Script: ", sys.argv[0])
+        print("number of arguments: ", len(sys.argv))
 
         # Game version 
         print("ROYAL PALACE INFO")
@@ -159,10 +174,18 @@ class RoyalPalace_Main(ShowBase):
         # Playable Character
         # 
 
-    # ⚠️ I will write a method to simplify model loading, such as ModelLoader(path, static/ skeletal, scale, etc.) with optional parameters (static should be default). To Do only when models are imported from Blender.
-    def ModelLoader(self): 
-        """ Documentation """
-        pass
+    def ModelLoader(self, ModelPath, GScale=5): 
+        """ Model loader to simplify how models are loaded in Python. 
+            ModelLoader ()
+
+            Parameters to add: static/ Skeletal; position; rotation; auto-animation (auto rotation, etc.)
+        """
+        
+        self.CurrentModel = self.loader.loadModel("Panda3dModels/" + ModelPath)
+        self.CurrentModel.reparentTo(self.render)
+
+        # ⚠️ Bug :  Scale doesn't work yet
+        self.CurrentModel.setScale(self.render, 0.1)
 
     def RCommands(self): 
         """ List of commands in the game (Keyboard only, at the moment) """

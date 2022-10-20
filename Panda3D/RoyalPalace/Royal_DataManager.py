@@ -6,6 +6,7 @@ import os
 import sys
 import platform
 import math 
+import requests
 
 from enum import Enum 
 
@@ -67,7 +68,16 @@ class Royal_Data:
         return cls.RCompany
 
     @classmethod 
-    def get_RWebsite(cls): 
+    def get_RWebsite(cls):
+        
+        # Checking if Website is working with requests status_code (200 = it works)
+        WebRequest = requests.get(cls.RWebsite)
+        if WebRequest.status_code == 200: 
+            print(cls.RWebsite)
+        elif WebRequest.status_code == 404 : 
+            print("Website unavailable")
+        else:
+            print("Website unavailable")
         return cls.RWebsite
 
 
