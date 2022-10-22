@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-__author__ = "Yoann AMAR ASSOULINE" 
 
 ''' 
 Royal Palace Main Module Doc
@@ -23,6 +22,12 @@ Export/ Import 3D Meshes
 - I export from Blender to gltf & convert it to BAM.
 
 '''
+
+from __future__ import annotations
+
+# Module Dunders 
+__author__ = "Yoann AMAR ASSOULINE" 
+__version__ = "1.0.0"
 
 # Builtin Imports
 from genericpath import isfile
