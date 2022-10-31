@@ -1,25 +1,14 @@
 [//]: # (Yoann AMAR ASSOULINE - GOLDANNIYATECH)
 [//]: # (https://github.com/Goldanniyatech/Game-Development_Lab) 
 
-# Game Dev Laboratory Overview
+# 3D Game Engines Research Overview
 
-This Game Dev Laboratory is a collection of various mini-games & prototypes made with multiple Game Engines, mainly for Research Purposes. Feel free to learn or re-use this content in any of your (commercial) projects, as long as you properly credit me. 
+⚠️ *Note: this repository is currently under heavy development and these projects or mini-games might not work (at all). Only a Release is intended to be used. Use it at your own risks* ⚠️
 
-Each element has been tested with the *version* mentioned below, and should be working right off the bat.
+This **Game Engine Research Laboratory** is a collection of various mini-games & prototypes made with multiple Game Engines, mainly for Research Purposes. My main rule is to use only Game Engines under development or *at least* under maintenance in the past two years. However, I want to focus on the most popular and up-to-date game engines, i.e., Godot, Unity and Unreal Engine.
 
+Feel free to learn or re-use this content in any of your (commercial) projects, as long as you properly credit me. 
 
-## Technical Stack
+⚠️ This repository will not contain highly-detailed 3D models, but only textureless Low-Poly Models. The goal of this repo is to focus mainly on Gameplay scripting.
 
-⚙️ **Godot Engine 3.5:** GDScript • Python
-
-⚙️ **Unity 2021.3:** C# 
-
-⚙️ **Unreal Engine 5.0:** Blueprints • C++ 
-
-
-# Game Dev Laboratory Projects 
-
-
-
-
-
+*More info soon*
