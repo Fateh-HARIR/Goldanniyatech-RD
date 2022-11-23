@@ -1,25 +1,21 @@
 #!/usr/bin/env python3
 
-
-''' 
-Royal Palace Main Module Doc
+''' Royal Palace Main Module Doc
 
 Project Coding Conventions: 
-🎫 Variables start with "R"
-🎫 Classes start with "Royal_" (except the main class, "RoyalPalace_" )
-🎫 Collections start with "RC" 
-🎫 Commands methods start with "RKey_" except the method defining keys (which should be "RCommands")
+🪙 Variables start with "R_"
+🪙 Collection of Variables start with "RC_" 
+🪙 Classes Methods start with "RM_"
+🪙 Classes or Modules start with "Royal_" (except the main class, "RoyalPalace_" )
+🪙 Commands methods start with "RKey_" except the method defining keys (which should be "RCommands_")
 
 Versions support: 
 Although some code is kept (& put as commentaries) for research purposes, only the following tools are supported: 
-- Panda3D  
-
-Packages 
-- Panda3D (1.10.12)
-- requests (2.28.1)
+🪙 Panda3D (1.10.12)
+🪙 requests (2.28.1)
 
 Export/ Import 3D Meshes 
-- I export from Blender to gltf & convert it to BAM.
+🪙 I export from Blender to gltf & convert it to BAM.
 
 '''
 
@@ -29,7 +25,7 @@ from __future__ import annotations
 __author__ = "Yoann AMAR ASSOULINE" 
 __version__ = "1.0.0"
 
-# Builtin Imports
+# Python Standard Library (Builtin)
 from genericpath import isfile
 import os
 import sys
@@ -38,12 +34,14 @@ import pathlib
 import math 
 import subprocess 
 
-# Numpy import
+# Third-Party Python Library 
 import numpy
+
 
 # Panda3D imports 
 from direct.showbase.ShowBase import ShowBase 
 from direct.actor import Actor 
+from direct.task import Task
 
 # from pandac.PandaModule import PandaSystem # Old version used for PandaSystem.getVersionString()
 from panda3d.core import PandaSystem
@@ -54,17 +52,22 @@ from panda3d.core import WindowProperties
 from panda3d.core import Material
 
 from direct.gui.DirectGui import * 
+#from direct.gui.OnscreenImage import OnscreenImage
 
 # RoyalPalace Imports ()
 import Royal_DataManager 
+import Royal_ConfigVariables 
+
+# Game Path
+R_royal_path = "" 
 
 # Royal Palace Debug Global Variables 
-RDebugConfig = True
-RDebugClearTerminal = True
-RDebugWriteData = True
-RDebugCleanFiles = True 
+R_debug_config = True
+R_debug_clear_terminal = True
+R_debug_write_data = True
+R_debug_clean_files = True 
 
-RDebugPanda3dContent = True # using asset from Panda3d SDK instead of my own asset (copy asset in ). ⚠️ Many features will NOT be available in this mode. 
+R_debug_panda3D_content = True # using asset from Panda3d SDK instead of my own asset (copy asset in ). ⚠️ Many features will NOT be available in this mode. 
 
 # Royal Palace main data class
 RoyalData = Royal_DataManager.Royal_Data
@@ -82,15 +85,15 @@ class RoyalPalace_Main(ShowBase):
         # Panda3d Window Properties 
         # ⚠️ Bug : display starts from 640*480, and isn't properly initialized in HD+
 
-        RoyalWinProperties = WindowProperties() 
-        RoyalWinProperties.setSize(Royal_DataManager.RCDisplayData["Resolution HD+"])
-        RoyalWinProperties.setTitle (RoyalData.get_RProjectTitle())
+        Royal_win_properties = WindowProperties() 
+        Royal_win_properties.setSize(Royal_DataManager.RCDisplayData["Resolution HD+"])
+        Royal_win_properties.setTitle (RoyalData.get_R_ProjectTitle())
 
-        self.win.requestProperties(RoyalWinProperties) 
+        self.win.requestProperties(Royal_win_properties) 
 
         # on-screen title 
-        self.title = OnscreenText(text=RoyalData.get_RWindowTitle(), parent=self.a2dBottomCenter, fg=(1, 1, 1, 1), pos=(0, .1), )
-
+        self.title = OnscreenText(text=RoyalData.get_R_WindowTitle(), parent=self.a2dBottomCenter, fg=(1, 1, 1, 1), pos=(0, .1), )
+ 
         # Mouse Parameters
         self.disableMouse()
         
@@ -100,26 +103,29 @@ class RoyalPalace_Main(ShowBase):
         # Camera
         self.camera.setPos(0, 0, 0)
  
-        # Calling DebugData class method (only if RDebugConfig variable is True)
+        # Calling DebugData class method (only if R_debug_config variable is True)
         self.DebugData() 
 
-        # Calling self class methods
-        if RDebugPanda3dContent == True: 
-            self.ModelLoader("panda-model.egg.pz")
+        # Calling the Startup Screen R method
+        self.taskMgr.add(self.RM_StartUpTask, "RM_StartUp") 
+
+        # Calling the Model Loader/ loading R method
+        if R_debug_panda3D_content is True: 
+            self.RM_ModelLoader("panda-model.egg.pz") 
         else: 
-            self.LoadRoyalLevel()
+            self.RM_LoadLevels("test.gltf")
         self.RCommands()
 
     def DebugData(self):
         """ Displaying Debug Data """
 
         # Writing Debug Data to Text file
-        if RDebugWriteData == True: 
-            DebugFile = open("RoyalPalace_DebugData.txt", "w")
-            sys.stdout = DebugFile 
+        if R_debug_write_data == True: 
+            debug_file = open("RoyalPalace_DebugData.txt", "w")
+            sys.stdout = debug_file 
 
-        # Clean terminal (checking Global Variable RDebugClearTerminal)
-        if RDebugClearTerminal == True: 
+        # Clean terminal (checking Global Variable R_debug_clear_terminal)
+        if R_debug_clear_terminal == True: 
             if os.name == 'nt': 
                 os.system('cls')
             else: 
@@ -132,7 +138,7 @@ class RoyalPalace_Main(ShowBase):
         print("\n")
 
         print("AUTHOR INFO")
-        print("Website: ", RoyalData.get_RWebsite())
+        print("Website: ", RoyalData.get_R_Website())
 
         # Script information 
         print("Python Script: ", sys.argv[0])
@@ -140,23 +146,38 @@ class RoyalPalace_Main(ShowBase):
 
         # Game version 
         print("ROYAL PALACE INFO")
-        print("Panda 3d Version: " + RoyalData.get_RPanda3dVersion())
+        print("Panda 3d Version: " + RoyalData.get_R_Panda3dVersion())
 
-        print(RoyalData.get_RProjectTitle())
+        print(RoyalData.get_R_ProjectTitle())
         print("\n")
 
-        DebugFile.close()
+        debug_file.close()
 
         # Writing back to console
-        if RDebugWriteData == True: 
+        if R_debug_write_data == True: 
             sys.stdout = sys.__stdout__
 
-    def LoadRoyalLevel(self): 
+    def RM_StartUpTask (self, task): 
+
+        # Starting StartUp Task and showing Panda3D Game Engine logo
+        if task.time == 0: 
+            print("StartUp Task Starting")
+            self.Panda3DScreen = OnscreenImage(image='Pics/StartUp_Panda3D.jpg', pos=(0, 0, 0))
+
+        # Waiting 3 seconds before to remove the first image
+        if task.time < 3.0 :
+            return Task.cont
+         
+        self.Panda3DScreen.destroy() 
+
+        return Task.done
+        
+    def RM_LoadLevels (self): 
         """ Loading every 3D model to display the menu """
         pass 
 
         # Environment 
-        self.RoyalScene = self.loader.loadModel("test.bam")
+        self.RoyalScene = self.loader.loadModel("test.gltf")
         self.RoyalScene.reparentTo(self.render)
         self.RoyalScene.setScale(0.8, 0.8, 0.8) 
         self.RoyalScene.setPos(0, 0, 0)  
@@ -176,18 +197,23 @@ class RoyalPalace_Main(ShowBase):
         # Characters 
         # 
 
-        # Playable Character
+        # Playable Characters
         # 
 
-    def ModelLoader(self, ModelPath, GScale=5): 
+    def RM_ModelLoader(self, ModelName, GScale=5): 
         """ Model loader to simplify how models are loaded in Python. 
-            ModelLoader ()
+            RM_ModelLoader ()
 
             Parameters to add: static/ Skeletal; position; rotation; auto-animation (auto rotation, etc.)
         """
         
-        self.CurrentModel = self.loader.loadModel("Panda3dModels/" + ModelPath)
-        self.CurrentModel.reparentTo(self.render)
+        self.CurrentModel = ""
+
+        if R_debug_panda3D_content is True: 
+            self.CurrentModel = self.loader.loadModel("Panda3dModels/" + ModelName)
+        else: 
+            self.CurrentModel = self.loader.loadModel(R_royal_path + ModelName)
+            self.CurrentModel.reparentTo(self.render)
 
         # ⚠️ Bug :  Scale doesn't work yet
         self.CurrentModel.setScale(self.render, 0.1)
@@ -197,17 +223,44 @@ class RoyalPalace_Main(ShowBase):
         
         # Escape to quit the game
         self.accept("escape", self.RKey_QuitRoyal)
+
+        # Spacebar to display in-game menu
+        self.accept("space", self.RKey_InGameMenuRoyal)
         
 
     def RKey_QuitRoyal(self): 
+        if R_debug_config is True: print("RKey_QuitRoyal")
         self.CleanUp() 
         sys.exit()
+
+    def RKey_InGameMenuRoyal(self):
+        local_game_paused = RoyalData.get_RC_game_paused()
+        
+
+        if R_debug_config is True:
+            print("RKey_InGameMenuRoyal")
+            print("Spacebar pressed")
+  
+        if local_game_paused is False: 
+            print ('R_paused_game True')
+            self.RoyalPalace_Esc_instructions = OnscreenText(text='Escape = Quit', parent=self.a2dLeftCenter, fg=(1, 1, 1, 1), pos=(0.3, 0.85))
+            self.RoyalPalace_Space_instructions = OnscreenText(text='Space = Menu', parent=self.a2dLeftCenter, fg=(1, 1, 1, 1), pos=(0.3, 0.75)) 
+            RoyalData.set_RC_game_paused(RoyalData, True)
+
+        elif local_game_paused is True: 
+            print ('R paused game false')
+            self.RoyalPalace_Esc_instructions.destroy()
+            self.RoyalPalace_Space_instructions.destroy()
+            RoyalData.set_RC_game_paused(RoyalData, False)
+
+        else: 
+            print("ERROR with R_paused_game Variable")
 
     def CleanUp(self): 
         print("Cleaning up Royal Palace Data")
         
         # Deleting Debug Text file
-        if RDebugCleanFiles == True: 
+        if R_debug_clean_files == True: 
             if os.path.isfile("RoyalPalace_DebugData.txt"): 
                 os.remove("RoyalPalace_DebugData.txt")
 

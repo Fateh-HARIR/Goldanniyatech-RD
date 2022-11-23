@@ -28,58 +28,69 @@ RCDisplayData = {
 class Royal_Data: 
     """ Main Data used in RoyalData. These are not gameplay data. """
 
-    # Class attributes
-    RGameTitle = "Royal Palace"
-    RWindowTitle = "Royal Palace Panda3D Micro-Game"
-    RGameVersion = 1.0
-    RPanda3dVersion = PandaSystem.getVersionString()
-    RAuthor = "Yoann AMAR ASSOULINE"
-    RCompany = "Goldanniyatech"
-    RWebsite = "https://www.goldanniyatech.com/"
+    # Class attributes 
+    R_GameTitle = "Royal Palace"
+    R_WindowTitle = "Royal Palace Panda3D Micro-Game"
+    R_GameVersion = 1.0
+    R_Panda3dVersion = PandaSystem.getVersionString()
+    R_Author = "Yoann AMAR ASSOULINE"
+    R_Company = "Goldanniyatech"
+    R_Website = "https://www.goldanniyatech.com/"
+
+    RC_game_paused = False
 
     # Class attributes based on previous attributes
-    RProjectTitle = RWindowTitle + " " + str(RGameVersion)
+    R_ProjectTitle = R_WindowTitle + " " + str(R_GameVersion)
 
     # Class methods to retrieve attributes.
     def __new__(cls): 
         pass
 
     def __init__(self): 
-        self.RWindowTitle = "Royal Palace Panda3D Micro-Game"
+        self.R_WindowTitle = "Royal Palace Panda3D Micro-Game"
 
     @classmethod
-    def get_RWindowTitle(cls):
-        return cls.RWindowTitle
+    def get_R_WindowTitle(cls):
+        return cls.R_WindowTitle
 
     @classmethod
-    def get_RProjectTitle(cls): 
-        return cls.RProjectTitle
+    def get_R_ProjectTitle(cls): 
+        return cls.R_ProjectTitle
 
     @classmethod
-    def get_RPanda3dVersion(cls): 
-        return cls.RPanda3dVersion
+    def get_R_Panda3dVersion(cls): 
+        return cls.R_Panda3dVersion
     
     @classmethod 
-    def get_RAuthor(cls): 
-        return cls.RAuthor
+    def get_R_Author(cls): 
+        return cls.R_Author
     
     @classmethod
-    def get_RCompany(cls): 
-        return cls.RCompany
+    def get_R_Company(cls): 
+        return cls.R_Company
 
     @classmethod 
-    def get_RWebsite(cls):
+    def get_R_Website(cls):
         
         # Checking if Website is working with requests status_code (200 = it works)
-        WebRequest = requests.get(cls.RWebsite)
+        WebRequest = requests.get(cls.R_Website)
         if WebRequest.status_code == 200: 
-            print(cls.RWebsite)
+            print(cls.R_Website)
         elif WebRequest.status_code == 404 : 
             print("Website unavailable")
         else:
             print("Website unavailable")
-        return cls.RWebsite
+        return cls.R_Website
 
+    @classmethod
+    def get_RC_game_paused(cls): 
+        return cls.RC_game_paused
+
+    def set_RC_game_paused(cls, value): 
+        if value == False: 
+            cls.RC_game_paused = False 
+        elif value == True:
+            cls.RC_game_paused = True
 
 class Royal_ProfileStats: 
     """ Profile Data for Players """
