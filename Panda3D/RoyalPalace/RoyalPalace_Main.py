@@ -48,11 +48,11 @@ from panda3d.core import PandaSystem
 
 from panda3d.core import AmbientLight, DirectionalLight
 from panda3d.core import Vec4
-from panda3d.core import WindowProperties 
+from panda3d.core import NodePath
 from panda3d.core import Material
+from panda3d.core import WindowProperties 
 from panda3d.core import LightLensNode
 from panda3d.core import Fog
-from panda3d.core import NodePath
 
 from direct.gui.DirectGui import *
 
@@ -67,7 +67,7 @@ R_debug_write_data = True
 R_debug_clean_files = True 
 R_debug_panda3d_camera = True
 
-R_debug_panda3d_content = False # using asset from Panda3d SDK instead of my own asset (copy asset in ). ⚠️ Many features will NOT be available in this mode. 
+R_debug_panda3d_content = bool(False) # using asset from Panda3d SDK instead of my own asset (copy asset in ). ⚠️ Many features will NOT be available in this mode. 
 
 # Royal Palace main data class
 RoyalData = Royal_DataManager.Royal_Data
@@ -178,7 +178,10 @@ class RoyalPalace_Main(ShowBase):
     def RM_LoadLevels (self, current_level): 
         """ Loading every 3D model to display the menu """
 
-        # Environment 
+        ########################
+        # Main Level  
+        ########################
+
         self.RoyalScene = self.loader.loadModel("Royal_3D-Models/Levels/" + current_level)
         self.RoyalScene.reparentTo(self.render)
         self.RoyalScene.setScale(1, 1, 1) 
@@ -223,13 +226,22 @@ class RoyalPalace_Main(ShowBase):
         # Fog 
         ########################
 
-        self.RoyalPalace_Fog = Fog("RC_Fog")
-        self.RoyalPalace_Fog.setColor(0.8, 0, 0)
-        self.RoyalPalace_Fog.setLinearRange(0, 1000)
-        self.RoyalPalace_Fog.setLinearFallback(45, 160, 320)
+        if RoyalData.get_RC_settings_fog is True: 
+            self.RoyalPalace_Fog = Fog("RC_Fog")
+            self.RoyalPalace_Fog.setColor(0, 0, 0)
+            self.RoyalPalace_Fog.setLinearRange(0, 1000)
+            self.RoyalPalace_Fog.setLinearFallback(45, 160, 320)
 
-        self.render.attachNewNode(self.RoyalPalace_Fog)
-        self.render.setFog(self.RoyalPalace_Fog)
+            self.render.attachNewNode(self.RoyalPalace_Fog)
+            self.render.setFog(self.RoyalPalace_Fog)
+        elif RoyalData.get_RC_settings_fog is False: 
+            pass 
+
+        ########################
+        # Collectibles 
+        ########################
+
+        # Coins can be collected by a player. 
 
     def RM_ModelLoader(self, ModelName, GScale=5): 
         """ Model loader to simplify how models are loaded in Python. 

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+# To Do List 
+# - Write generic methods with multiple properties inside instead of single set/ get 
+#   For instance, create a Set_Settings(cls, setting) and use the "setting" argument to select which setting to change/ get
+#   You can even create a set/ get argument instead of two different Methods. it's heavier, but follows more the DRY (Don't Repeat Yourself) principle 
 
 # Builtin Imports
 import os
@@ -38,13 +42,22 @@ class Royal_Data:
     R_Company = "Goldanniyatech"
     R_Website = "https://www.goldanniyatech.com/"
 
+    # In-Game Attributes
+    RC_collectible_coins = 0
+
+    # Menu Attributes
     RC_game_paused = False
     RC_OnScreenText_objects = []
+    RC_settings_fog = False
 
     # Class attributes based on previous attributes
     R_ProjectTitle = R_WindowTitle + " " + str(R_GameVersion)
 
-    # Class methods to retrieve attributes.
+
+    ########################
+    # Meta-Game Attributes 
+    ########################
+
     def __new__(cls): 
         pass
 
@@ -88,6 +101,24 @@ class Royal_Data:
             print("Website unavailable")
         return cls.R_Website
 
+    ########################
+    # In-Game Attributes (Score, etc.)
+    ########################
+
+    @classmethod 
+    def get_RC_collectible_coins(cls): 
+        return cls.RC_collectible_coins
+
+    @classmethod
+    def set_RC_collectible_coins(cls, number_of_coins):
+        cls.RC_collectible_coins = cls.RC_collectible_coins + number_of_coins
+        return cls.RC_collectible_coins
+
+
+    ########################
+    # Menu Attributes
+    ########################
+
     @classmethod
     def get_RC_game_paused(cls): 
         return cls.RC_game_paused
@@ -106,6 +137,16 @@ class Royal_Data:
     @classmethod
     def append_RC_OnScreenText_objects(cls, item): 
         cls.RC_OnScreenText_objects.append(item)
+
+    @classmethod 
+    def get_RC_settings_fog(cls, boolean_value): 
+        return cls.RC_settings_fog
+
+    @classmethod 
+    def set_RC_settings_fog(cls, boolean_value): 
+        cls.RC_settings_fog = boolean_value
+        return cls.RC_settings_fog
+
 
 class Royal_ProfileStats: 
     """ Profile Data for Players """
