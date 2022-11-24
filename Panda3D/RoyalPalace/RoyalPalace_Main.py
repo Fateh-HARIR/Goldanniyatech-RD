@@ -50,6 +50,9 @@ from panda3d.core import AmbientLight, DirectionalLight
 from panda3d.core import Vec4
 from panda3d.core import WindowProperties 
 from panda3d.core import Material
+from panda3d.core import LightLensNode
+from panda3d.core import Fog
+from panda3d.core import NodePath
 
 from direct.gui.DirectGui import *
 
@@ -174,32 +177,59 @@ class RoyalPalace_Main(ShowBase):
         
     def RM_LoadLevels (self, current_level): 
         """ Loading every 3D model to display the menu """
-        pass 
 
         # Environment 
         self.RoyalScene = self.loader.loadModel("Royal_3D-Models/Levels/" + current_level)
         self.RoyalScene.reparentTo(self.render)
         self.RoyalScene.setScale(1, 1, 1) 
-        self.RoyalScene.setPos(0, 0, 0) 
+        self.RoyalScene.setPos(0, 0, 0)
+        self.RoyalScene.setHpr(270, 0, 0)
 
         self.camera.setPos(100, 100, 0)
 
         # Updating RoyalPalace Materials
-        if (current_level == "RoyalPalace.bam"): 
-            if R_debug_config is True: print(self.RoyalScene.findAllMaterials())
+        #if (current_level == "RoyalPalace.bam"): 
+        #    if R_debug_config is True: print(self.RoyalScene.findAllMaterials())
 
-            CastleMat_Black = self.RoyalScene.findMaterial("CastleMat_Black")
-            CastleMat_Black_Panda3DVersion = Material()
-            CastleMat_Black_Panda3DVersion.setShininess(0)
-            CastleMat_Black_Panda3DVersion.setAmbient((1, 0, 1,0))
-            CastleMat_Black_Panda3DVersion.setDiffuse((1, 0, 1,0))
-            self.RoyalScene.setMaterial(CastleMat_Black_Panda3DVersion, 1)
+        #    CastleMat_Black = self.RoyalScene.findMaterial("CastleMat_Black")
+        #    CastleMat_Black_Panda3DVersion = Material()
+        #    CastleMat_Black_Panda3DVersion.setShininess(0)
+        #    CastleMat_Black_Panda3DVersion.setAmbient((1, 0, 1,0))
+        #    CastleMat_Black_Panda3DVersion.setDiffuse((1, 0, 1,0))
+        #    self.RoyalScene.replaceMaterial(CastleMat_Black, CastleMat_Black_Panda3DVersion)
 
+        ########################
         # Lights 
-        self.RoyalAmbientLight = AmbientLight("ambient light") 
-        self.RoyalAmbientLight.setColor(Vec4(0.5, 0.5, 0.5, 1))
-        # Need to load the actual scene to attach the light.  
+        ########################
+
+        # Directional Light 
+        self.RoyalDirLight = DirectionalLight("RL_DirectionalLight") 
+        self.RoyalDirLight.setColor((1, 1, 1, 1))
+        self.RoyalDirLight.setShadowCaster(True, 512, 512)
+        self.RoyalDirLight_Node = self.render.attachNewNode(self.RoyalDirLight)
+        self.RoyalDirLight_Node.setHpr(0, -40, 0)
+        self.render.setLight(self.RoyalDirLight_Node) 
+
+        # Ambient Light 
+        self.RoyalAmbLight = AmbientLight("RL_AmbientLight")
+        self.RoyalAmbLight.setColor((0.3, 0.3, 0.3, 1))
+        self.RoyalAmbLight_Node = self.render.attachNewNode(self.RoyalAmbLight)
+        self.render.setLight(self.RoyalAmbLight_Node)
         
+        # Shadow Mapping
+        self.render.setShaderAuto()
+
+        ########################
+        # Fog 
+        ########################
+
+        self.RoyalPalace_Fog = Fog("RC_Fog")
+        self.RoyalPalace_Fog.setColor(0.8, 0, 0)
+        self.RoyalPalace_Fog.setLinearRange(0, 1000)
+        self.RoyalPalace_Fog.setLinearFallback(45, 160, 320)
+
+        self.render.attachNewNode(self.RoyalPalace_Fog)
+        self.render.setFog(self.RoyalPalace_Fog)
 
     def RM_ModelLoader(self, ModelName, GScale=5): 
         """ Model loader to simplify how models are loaded in Python. 
@@ -220,10 +250,11 @@ class RoyalPalace_Main(ShowBase):
         self.CurrentModel.setScale(self.render, 0.1)
 
         # Characters 
-        # 
+        pass
 
         # Playable Characters
-        # 
+        pass
+
     def RCommands(self): 
         """ List of commands in the game (Keyboard only, at the moment) """
         
