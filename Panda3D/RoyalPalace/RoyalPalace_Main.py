@@ -51,29 +51,26 @@ from panda3d.core import Vec4
 from panda3d.core import WindowProperties 
 from panda3d.core import Material
 
-from direct.gui.DirectGui import * 
-#from direct.gui.OnscreenImage import OnscreenImage
+from direct.gui.DirectGui import *
 
 # RoyalPalace Imports ()
-import Royal_DataManager 
-import Royal_ConfigVariables 
-
-# Game Path
-R_royal_path = "" 
+import Royal_DataManager
+import Royal_ConfigVariables
 
 # Royal Palace Debug Global Variables 
 R_debug_config = True
 R_debug_clear_terminal = True
 R_debug_write_data = True
 R_debug_clean_files = True 
+R_debug_panda3d_camera = True
 
-R_debug_panda3D_content = True # using asset from Panda3d SDK instead of my own asset (copy asset in ). ⚠️ Many features will NOT be available in this mode. 
+R_debug_panda3d_content = False # using asset from Panda3d SDK instead of my own asset (copy asset in ). ⚠️ Many features will NOT be available in this mode. 
 
 # Royal Palace main data class
 RoyalData = Royal_DataManager.Royal_Data
 
 class RoyalPalace_Main(ShowBase): 
-    """ Main class """
+    """ Main Royal Palace class """
 
     def __new__(cls): 
         return object.__new__(cls)
@@ -95,7 +92,7 @@ class RoyalPalace_Main(ShowBase):
         self.title = OnscreenText(text=RoyalData.get_R_WindowTitle(), parent=self.a2dBottomCenter, fg=(1, 1, 1, 1), pos=(0, .1), )
  
         # Mouse Parameters
-        self.disableMouse()
+        if R_debug_panda3d_camera is False: self.disableMouse()
         
         # Background
         self.setBackgroundColor((0, 0, 0, 1))
@@ -106,16 +103,15 @@ class RoyalPalace_Main(ShowBase):
         # Calling DebugData class method (only if R_debug_config variable is True)
         self.DebugData() 
 
-        # Calling the Startup Screen R method
+        # Calling the Startup Screen R method & Loading the Commands method when the task itself has finished
         self.taskMgr.add(self.RM_StartUpTask, "RM_StartUp") 
-
+ 
         # Calling the Model Loader/ loading R method
-        if R_debug_panda3D_content is True: 
+        if R_debug_panda3d_content is True: 
             self.RM_ModelLoader("panda-model.egg.pz") 
         else: 
-            self.RM_LoadLevels("test.gltf")
-        self.RCommands()
-
+            self.RM_LoadLevels("RoyalPalace.bam")
+        
     def DebugData(self):
         """ Displaying Debug Data """
 
@@ -158,47 +154,52 @@ class RoyalPalace_Main(ShowBase):
             sys.stdout = sys.__stdout__
 
     def RM_StartUpTask (self, task): 
+        """ Using a StartUp Screen from the Panda3D logo """
+
+        task_time = 3.0
+        if R_debug_config is True: task_time = 1
 
         # Starting StartUp Task and showing Panda3D Game Engine logo
         if task.time == 0: 
-            print("StartUp Task Starting")
-            self.Panda3DScreen = OnscreenImage(image='Pics/StartUp_Panda3D.jpg', pos=(0, 0, 0))
-
+            if R_debug_config is True: print("StartUp Task Starting")
+            self.Panda3DScreen = OnscreenImage(image='Pics/StartUp_Panda3D.jpg', pos=(0, 0, 0), scale=(2, 1, 1))
+        
         # Waiting 3 seconds before to remove the first image
-        if task.time < 3.0 :
+        if task.time < task_time:
             return Task.cont
-         
-        self.Panda3DScreen.destroy() 
-
+        
+        self.Panda3DScreen.destroy()
+        self.RCommands()
         return Task.done
         
-    def RM_LoadLevels (self): 
+    def RM_LoadLevels (self, current_level): 
         """ Loading every 3D model to display the menu """
         pass 
 
         # Environment 
-        self.RoyalScene = self.loader.loadModel("test.gltf")
+        self.RoyalScene = self.loader.loadModel("Royal_3D-Models/Levels/" + current_level)
         self.RoyalScene.reparentTo(self.render)
-        self.RoyalScene.setScale(0.8, 0.8, 0.8) 
-        self.RoyalScene.setPos(0, 0, 0)  
+        self.RoyalScene.setScale(1, 1, 1) 
+        self.RoyalScene.setPos(0, 0, 0) 
 
-        # Temporary material 
-        TestMaterial = Material()
-        TestMaterial.setShininess(6.0)
-        TestMaterial.setAmbient((0, 0, 1, 1))
-        
+        self.camera.setPos(100, 100, 0)
+
+        # Updating RoyalPalace Materials
+        if (current_level == "RoyalPalace.bam"): 
+            if R_debug_config is True: print(self.RoyalScene.findAllMaterials())
+
+            CastleMat_Black = self.RoyalScene.findMaterial("CastleMat_Black")
+            CastleMat_Black_Panda3DVersion = Material()
+            CastleMat_Black_Panda3DVersion.setShininess(0)
+            CastleMat_Black_Panda3DVersion.setAmbient((1, 0, 1,0))
+            CastleMat_Black_Panda3DVersion.setDiffuse((1, 0, 1,0))
+            self.RoyalScene.setMaterial(CastleMat_Black_Panda3DVersion, 1)
+
         # Lights 
-
-        RoyalAmbientLight = AmbientLight("ambient light") 
-        RoyalAmbientLight.setColor(Vec4(0.5, 0.5, 0.5, 1))
-        # Need to load the actual scene to attach the light. 
-        # __builtins__['render'].setLight(self.RoyalAmbientLight) 
+        self.RoyalAmbientLight = AmbientLight("ambient light") 
+        self.RoyalAmbientLight.setColor(Vec4(0.5, 0.5, 0.5, 1))
+        # Need to load the actual scene to attach the light.  
         
-        # Characters 
-        # 
-
-        # Playable Characters
-        # 
 
     def RM_ModelLoader(self, ModelName, GScale=5): 
         """ Model loader to simplify how models are loaded in Python. 
@@ -209,15 +210,20 @@ class RoyalPalace_Main(ShowBase):
         
         self.CurrentModel = ""
 
-        if R_debug_panda3D_content is True: 
+        if R_debug_panda3d_content is True: 
             self.CurrentModel = self.loader.loadModel("Panda3dModels/" + ModelName)
         else: 
-            self.CurrentModel = self.loader.loadModel(R_royal_path + ModelName)
+            self.CurrentModel = self.loader.loadModel(RoyalData.get_R_GamePath + ModelName)
             self.CurrentModel.reparentTo(self.render)
 
         # ⚠️ Bug :  Scale doesn't work yet
         self.CurrentModel.setScale(self.render, 0.1)
 
+        # Characters 
+        # 
+
+        # Playable Characters
+        # 
     def RCommands(self): 
         """ List of commands in the game (Keyboard only, at the moment) """
         
@@ -243,15 +249,31 @@ class RoyalPalace_Main(ShowBase):
   
         if local_game_paused is False: 
             print ('R_paused_game True')
-            self.RoyalPalace_Esc_instructions = OnscreenText(text='Escape = Quit', parent=self.a2dLeftCenter, fg=(1, 1, 1, 1), pos=(0.3, 0.85))
-            self.RoyalPalace_Space_instructions = OnscreenText(text='Space = Menu', parent=self.a2dLeftCenter, fg=(1, 1, 1, 1), pos=(0.3, 0.75)) 
-            RoyalData.set_RC_game_paused(RoyalData, True)
+            #self.RoyalPalace_Esc_instructions = OnscreenText(text='Escape = Quit', parent=self.a2dLeftCenter, fg=(1, 1, 1, 1), pos=(0.3, 0.85))
+            #self.RoyalPalace_Space_instructions = OnscreenText(text='Space = Menu', parent=self.a2dLeftCenter, fg=(1, 1, 1, 1), pos=(0.3, 0.75)) 
+
+            # Instructions Loop
+            instructions_dict = { "Esc": "Escape = Quit", 
+                                  "Space": "Space = Menu"
+                                }
+            
+            OnscreenText_pos_y = 0.9
+
+            for instruction_key, instruction_value in instructions_dict.items(): 
+                RoyalData.append_RC_OnScreenText_objects(OnscreenText(text=instruction_value, parent=self.a2dLeftCenter, fg=(1, 1, 1, 1), pos=(0.3, OnscreenText_pos_y)))
+                OnscreenText_pos_y -= 0.1
+            
+            RoyalData.set_RC_game_paused(True)
 
         elif local_game_paused is True: 
-            print ('R paused game false')
-            self.RoyalPalace_Esc_instructions.destroy()
-            self.RoyalPalace_Space_instructions.destroy()
-            RoyalData.set_RC_game_paused(RoyalData, False)
+            print ('R paused game false') 
+
+            RoyalData.set_RC_game_paused(False)
+
+            panda3d_text_objects = RoyalData.get_RC_OnScreenText_objects()
+             
+            for object in panda3d_text_objects: 
+                object.destroy()
 
         else: 
             print("ERROR with R_paused_game Variable")

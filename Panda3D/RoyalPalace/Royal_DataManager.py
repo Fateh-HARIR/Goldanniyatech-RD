@@ -29,6 +29,7 @@ class Royal_Data:
     """ Main Data used in RoyalData. These are not gameplay data. """
 
     # Class attributes 
+    R_GamePath = "" 
     R_GameTitle = "Royal Palace"
     R_WindowTitle = "Royal Palace Panda3D Micro-Game"
     R_GameVersion = 1.0
@@ -38,6 +39,7 @@ class Royal_Data:
     R_Website = "https://www.goldanniyatech.com/"
 
     RC_game_paused = False
+    RC_OnScreenText_objects = []
 
     # Class attributes based on previous attributes
     R_ProjectTitle = R_WindowTitle + " " + str(R_GameVersion)
@@ -48,6 +50,10 @@ class Royal_Data:
 
     def __init__(self): 
         self.R_WindowTitle = "Royal Palace Panda3D Micro-Game"
+
+    @classmethod 
+    def get_R_GamePath(cls): 
+        return cls.R_GamePath
 
     @classmethod
     def get_R_WindowTitle(cls):
@@ -86,11 +92,20 @@ class Royal_Data:
     def get_RC_game_paused(cls): 
         return cls.RC_game_paused
 
+    @classmethod
     def set_RC_game_paused(cls, value): 
-        if value == False: 
+        if value is False: 
             cls.RC_game_paused = False 
-        elif value == True:
+        elif value is True:
             cls.RC_game_paused = True
+
+    @classmethod
+    def get_RC_OnScreenText_objects(cls): 
+        return cls.RC_OnScreenText_objects
+
+    @classmethod
+    def append_RC_OnScreenText_objects(cls, item): 
+        cls.RC_OnScreenText_objects.append(item)
 
 class Royal_ProfileStats: 
     """ Profile Data for Players """
