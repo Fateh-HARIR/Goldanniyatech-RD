@@ -62,15 +62,15 @@ import Royal_ConfigVariables
 
 # Royal Palace Debug Global Variables 
 R_debug_config = True
-R_debug_clear_terminal = True
-R_debug_write_data = True
+R_debug_clear_terminal = False
+R_debug_write_data = False
 R_debug_clean_files = True 
 R_debug_panda3d_camera = True
 
 R_debug_panda3d_content = bool(False) # using asset from Panda3d SDK instead of my own asset (copy asset in ). ⚠️ Many features will NOT be available in this mode. 
 
 # Royal Palace main data class
-RoyalData = Royal_DataManager.Royal_Data
+RoyalData = Royal_DataManager.Royal_Data_Class()
 
 class RoyalPalace_Main(ShowBase): 
     """ Main Royal Palace class """
@@ -87,12 +87,12 @@ class RoyalPalace_Main(ShowBase):
 
         Royal_win_properties = WindowProperties() 
         Royal_win_properties.setSize(Royal_DataManager.RCDisplayData["Resolution HD+"])
-        Royal_win_properties.setTitle (RoyalData.get_R_ProjectTitle())
+        Royal_win_properties.setTitle (RoyalData.R_ProjectTitle)
 
         self.win.requestProperties(Royal_win_properties) 
 
         # on-screen title 
-        self.title = OnscreenText(text=RoyalData.get_R_WindowTitle(), parent=self.a2dBottomCenter, fg=(1, 1, 1, 1), pos=(0, .1), )
+        self.title = OnscreenText(text=RoyalData.R_window_title, parent=self.a2dBottomCenter, fg=(1, 1, 1, 1), pos=(0, .1), )
  
         # Mouse Parameters
         if R_debug_panda3d_camera is False: self.disableMouse()
@@ -136,25 +136,25 @@ class RoyalPalace_Main(ShowBase):
         print("Python Version: " + platform.python_version())
         print("\n")
 
-        print("AUTHOR INFO")
-        print("Website: ", RoyalData.get_R_Website())
+        print("🔹AUTHOR INFO🔹")
+        print("Website: ", RoyalData.R_Website)
 
         # Script information 
         print("Python Script: ", sys.argv[0])
         print("number of arguments: ", len(sys.argv))
 
         # Game version 
-        print("ROYAL PALACE INFO")
-        print("Panda 3d Version: " + RoyalData.get_R_Panda3dVersion())
+        print("👑 ROYAL PALACE INFO 👑")
+        print("Panda 3d Version: " + RoyalData.R_Panda3dVersion)
 
-        print(RoyalData.get_R_ProjectTitle())
+        print(RoyalData.R_ProjectTitle)
         print("\n")
 
-        debug_file.close()
-
-        # Writing back to console
-        if R_debug_write_data == True: 
+        if R_debug_write_data is True: 
+            debug_file.close()
             sys.stdout = sys.__stdout__
+        else: 
+            pass 
 
     def RM_StartUpTask (self, task): 
         """ Using a StartUp Screen from the Panda3D logo """
@@ -226,7 +226,7 @@ class RoyalPalace_Main(ShowBase):
         # Fog 
         ########################
 
-        if RoyalData.get_RC_settings_fog is True: 
+        if RoyalData.RC_settings_fog is True: 
             self.RoyalPalace_Fog = Fog("RC_Fog")
             self.RoyalPalace_Fog.setColor(0, 0, 0)
             self.RoyalPalace_Fog.setLinearRange(0, 1000)
@@ -234,7 +234,7 @@ class RoyalPalace_Main(ShowBase):
 
             self.render.attachNewNode(self.RoyalPalace_Fog)
             self.render.setFog(self.RoyalPalace_Fog)
-        elif RoyalData.get_RC_settings_fog is False: 
+        elif RoyalData.RC_settings_fog is False: 
             pass 
 
         ########################
@@ -255,7 +255,7 @@ class RoyalPalace_Main(ShowBase):
         if R_debug_panda3d_content is True: 
             self.CurrentModel = self.loader.loadModel("Panda3dModels/" + ModelName)
         else: 
-            self.CurrentModel = self.loader.loadModel(RoyalData.get_R_GamePath + ModelName)
+            self.CurrentModel = self.loader.loadModel(RoyalData.R_GamePath + ModelName)
             self.CurrentModel.reparentTo(self.render)
 
         # ⚠️ Bug :  Scale doesn't work yet
@@ -283,7 +283,7 @@ class RoyalPalace_Main(ShowBase):
         sys.exit()
 
     def RKey_InGameMenuRoyal(self):
-        local_game_paused = RoyalData.get_RC_game_paused()
+        local_game_paused = RoyalData.RC_game_paused
         
 
         if R_debug_config is True:
@@ -303,17 +303,17 @@ class RoyalPalace_Main(ShowBase):
             OnscreenText_pos_y = 0.9
 
             for instruction_key, instruction_value in instructions_dict.items(): 
-                RoyalData.append_RC_OnScreenText_objects(OnscreenText(text=instruction_value, parent=self.a2dLeftCenter, fg=(1, 1, 1, 1), pos=(0.3, OnscreenText_pos_y)))
+                RoyalData.RC_OnScreenText_objects = OnscreenText(text=instruction_value, parent=self.a2dLeftCenter, fg=(1, 1, 1, 1), pos=(0.3, OnscreenText_pos_y))
                 OnscreenText_pos_y -= 0.1
             
-            RoyalData.set_RC_game_paused(True)
+            RoyalData.RC_game_paused = True
 
         elif local_game_paused is True: 
             print ('R paused game false') 
 
-            RoyalData.set_RC_game_paused(False)
+            RoyalData.RC_game_paused = False
 
-            panda3d_text_objects = RoyalData.get_RC_OnScreenText_objects()
+            panda3d_text_objects = RoyalData.RC_OnScreenText_objects
              
             for object in panda3d_text_objects: 
                 object.destroy()
