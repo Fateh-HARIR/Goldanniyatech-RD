@@ -73,7 +73,7 @@ rollout FolderSelectorRollout "Folder Selector 1"
 	)
 	 
 	label confidential "Confidential Project"
-	label confidentialProject "© AMAR Yoann. All Rights Reserved" 
+	label confidentialProject "Â© AMAR Yoann. All Rights Reserved" 
  
 	
 	
