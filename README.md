@@ -20,7 +20,7 @@ Here's the full list of every software, programming language & graphics software
 
 ## Projects Overview
 
-### **Kobra-Scripts** (Scripting Project)
+### **Tiger-Scripting** (Scripting Project)
 A set of Python scripts to improve productivity. It's currently only for Blender but the goal is to expand the project to write the same scripts for 3DS Max, Maya and Blender. 
 
 :x: Blender Game Engine Exporter
