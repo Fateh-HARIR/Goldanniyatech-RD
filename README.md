@@ -1,70 +1,27 @@
-[//]: # (Yoann AMAR ASSOULINE - GOLDANNIYATECH)
-[//]: # (https://github.com/Goldanniyatech/Game-Development_Lab)
+[//]: # (Yoann AMAR ASSOULINE - GOLDANNIYATECH) 
 
 # 3D Game Development Research Overview
 
-⚠️ *Note: this repository is currently under heavy development and these projects or mini-games might not work (at all). Only a Release is intended to be used.* 
+⚠️ *Note: this repository is currently under heavy development and these projects or mini-games might not work (at all). Only a Release is intended to be used.*
 
-This **Game Engine Research Laboratory** is a collection of various scripts, prototypes and mini-games made with multiple Game Engines & DCC, mainly for Research Purposes. My main rule is to use only Game Engines under development or *at least* under maintenance in the past two years. However, I want to focus on the most popular and up-to-date game engines, i.e., Godot, Unity and Unreal Engine.
+This **3D Game Development Research Laboratory** is a collection of open source mini-games made with various Game Engines & 2D/ 3D software, mainly for research purposes. I only use tools that are under heavy development or *at least* under maintenance in the past two years.
 
-Feel free to learn or re-use this content in any of your (commercial) projects, as long as you properly credit me.
+Of course, feel free to learn from or re-use this content in any of your (commercial) projects, as long as you properly credit me (Yoann AMAR ASSOULINE @Goldanniyatech). Each project has been tested with the *version* mentioned below, and should be working right off the bat.
 
-Each project has been tested with the *version* mentioned below, and should be working right off the bat.
+## Technical Stack
+Here's the full list of every software, programming language & graphics software I've used. Note that everything is entirely made by myself from scratch, from programming scripts to 3D asset (modeling, texturing, animations...). 
 
-## Technical Stack (planned) 
+🌀 **Programming Languages**:  C++ • C# • Java • Python
 
-### 3D DCC (Digital Content Creation)
+🌀 **2D/ 3D Graphics**: Autodesk 3DS Max 2023 • Autodesk Maya 2023 • Blender 3.3
 
-🌀 **Autodesk 3DS Max 2023:** C++ • MAXScript • MCG (Max Creation Graph) • Python
+🌀 **Game Engines**: Panda3D 1.10.12 • Unity 2021.3 • Unreal Engine 5.1
 
-🌀 **Autodesk Maya 2023:** C++ • MEL • Python
-
-🌀 **Blender 3.3:** Python
-
-### Game Engines
-
-🌀 **Godot Engine 3.5:** GDScript • Python
-
-🌀 **JMonkey Engine 3**: Java
-
-🌀 **Panda3D**: C++ • Python
-
-🌀 **Unity 2021.3:** C# • HLSL (previously Cg)
-
-🌀 **Unreal Engine 5.0:** Blueprints • C++ (Gameplay) • C++ (UnrealEd) • Python (UnrealEd)
-
-### 3D API
-
-🌀 **OpenGL**
-
-🌀 **Vulkan**
-
-## ReadMe Document Conventions
-
-* :x: = The script/ project is not Working yet (a Work in Progress)
-* :white_check_mark: = The script/ project works as expected and has been tested with the software's version listed above.
 
 ## Projects Overview
 
-### **Autodesk 3DS Max 2023**
-
-#### MAXScript
-
-:x: 3DS Game Engine Exporter
-
-:x: Material Toolbox
-
-<!-- #### Python -->
-
-<!-- ### **Autodesk Maya 2023** -->
-
-<!-- #### MEL -->
-
-<!-- #### Python -->
-
-### **Blender 3.3**
-
-#### Python
+### **Kobra-Scripts** (Scripting Project)
+A set of Python scripts to improve productivity. It's currently only for Blender but the goal is to expand the project to write the same scripts for 3DS Max, Maya and Blender. 
 
 :x: Blender Game Engine Exporter
 
@@ -76,16 +33,20 @@ Each project has been tested with the *version* mentioned below, and should be w
 
 :white_check_mark: Scene Selector
 
-<!-- ### **Godot Engine 3.5** -->
+### :x: **Royal Palace** (Mini-Game)
 
-<!-- #### GDScript -->
+**Royal Palace** is a mini-game built in Panda3D (in Python) from scratch, with 3D models & texture made from scratch in Blender (some tweaks have been made for Adobe Photoshop).
+The game itself revolves around a small family living in a castle & collecting coins all day long. 
 
-### Panda3D
+<!-- 
+Dev Status: the **Royal Palace mini-game project** is finished and only under maintenance, with some tweaks from time to time. 
+-->
 
-### Royal Palace
+Note: for **Panda3D**, Each model was made with Blender (texture included, painted with Blender tools & tweaked with Photoshop when needed) and firstly exported in gltf 2.0. 
+Then, the panda3d-gltf converter [https://github.com/Moguri/panda3d-gltf], installed with PIP, can help to convert .gltf to .bam. by using the cmd (gltf2bam source.gltf output.bam)
+It is definitely not the most effective way, especially when you compare that process with **Unreal Engine** or **Unity**, but it works! 
 
-<!-- ### **Unity 2021.3** -->
 
-<!-- ### **Unreal Engine 5.0** -->
+<!-- ### **Unity** -->
 
-<!-- #### Python -->
+<!-- ### **Unreal Engine** -->
