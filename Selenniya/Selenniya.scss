@@ -1,0 +1,668 @@
+@charset "UTF-8";
+/**************************************************************************************************************************
+ *                                                                                                                        *
+ *  ██████╗  ██████╗ ██╗     ██████╗  █████╗ ███╗   ██╗███╗   ██╗██╗██╗   ██╗ █████╗ ████████╗███████╗ ██████╗██╗  ██╗    *
+ * ██╔════╝ ██╔═══██╗██║     ██╔══██╗██╔══██╗████╗  ██║████╗  ██║██║╚██╗ ██╔╝██╔══██╗╚══██╔══╝██╔════╝██╔════╝██║  ██║    *
+ * ██║  ███╗██║   ██║██║     ██║  ██║███████║██╔██╗ ██║██╔██╗ ██║██║ ╚████╔╝ ███████║   ██║   █████╗  ██║     ███████║    *
+ * ██║   ██║██║   ██║██║     ██║  ██║██╔══██║██║╚██╗██║██║╚██╗██║██║  ╚██╔╝  ██╔══██║   ██║   ██╔══╝  ██║     ██╔══██║    *
+ * ╚██████╔╝╚██████╔╝███████╗██████╔╝██║  ██║██║ ╚████║██║ ╚████║██║   ██║   ██║  ██║   ██║   ███████╗╚██████╗██║  ██║    *
+ *  ╚═════╝  ╚═════╝ ╚══════╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═     *
+ *                                                                                                                        *
+ *        ➡️ Goldanniyatech is a 3D Software Dev & Self-Publishing Studio founded by Yoann AMAR ASSOULINE in 2021        *
+ *                                                                                                                        *
+ * Selenniya is a flexible CSS Preprocessor (SCSS) useful if various contexts                                             *
+ *                                                                                                                        *
+ * Conventions:                                                                                                           *
+ *   ➡️ SCSS Variable names start with $SelenniyaCore                                                                     *
+ *   ➡️ SCSS Comments are only made with double forward slashs (//) to remove them automatically from the final CSS       *
+ *   ➡️ CSS Variable names start with --Selenniya                                                                         *
+ **************************************************************************************************************************/
+
+// *********************************************************
+// *                                                       
+// * Main CSS Classes:                                     
+// * ➡️ Goldanniya-Menu                                    
+// * ➡️ Goldanniya-Content                                
+// *                                                        
+// *
+// * Document Conventions
+// * 
+// * Sizes: 
+// * ➡️ Goldanniya-Menu-Button: width:200px, height:100px 
+
+
+// Importing SCSS built-in functions
+ @use "sass:list"; 
+ @use "sass:map"; 
+ @use "sass:math"; 
+ @use "sass:string";
+
+//********************************************************************
+//*            Selenniya Beautify SCSS Data            *
+//********************************************************************/
+
+$SelenniyaCore-DebugConfig: true;
+// ★ Debug Configuration, only useful for testing purposes when adding new functionalities. Please do not enable it if you only need to change some SCSS variables. 
+
+@if $SelenniyaCore-DebugConfig == true 
+{
+    @warn "SelenniyaCore Debug Config is enabled"; 
+}
+
+// SCSS Collections
+$SelenniyaCore-Compatibility-List: 
+    ("Android": -webkit-, "Chrome": -webkit-, "Firefox": -moz-, "IExplorer": -ms-, "iOS": -webkit-, "Opera": -o-, "Safari": -webkit) !default; 
+
+$SelenniyaCore-FontSizes-List: 
+    ("H1" : 45, "H2" : 35, "H3" : 30, "H4" : 25, "H5" : 20, "H6" : 18, "P" : 16) !default; 
+
+$SelenniyaCore-FontFamily-List: 
+    ("test") !default; 
+
+// SCSS Global Variables
+$SelenniyaCore-HTML-Tag: true !default; 
+$SelenniyaCore-Theme: "Selenniya" !default; // Selenniya is the default theme. You can find other themes in Selenniya_Themes.scss.
+
+$SelenniyaCore-Foreground: white !default; 
+$SelenniyaCore-Background-Color-Mono: blue !default;
+$SelenniyaCore-Background-Color-Linear:  linear-gradient(90deg, rgba(0,9,91,1) 0%, rgba(1,25,124,1) 14%, rgba(0,27,140,1) 36%, rgba(0,6,126,1) 79%, rgba(0,9,91,1) 100%) !default;
+
+$SelenniyaCore-Unit-Type: "px";   // Not all CSS units are taken, but only the most common absolute & relative units
+                                  //    Absolute: "px"
+                                  //   Relative: "em" • "rem" • % (the percentage is always the "else" parameter, so even a user change this SCSS file and put a non-recognizable unit, the % is still used).
+
+$SelenniyaCore-Theme: "Selenniya" !default;
+$SelenniyaCore-Menu-Theme: "Metro" !default; 
+
+$SelenniyaCore-FontSize-H1: 60 !default;
+$SelenniyaCore-FontSize-H2: 35 !default;
+$SelenniyaCore-FontSize-H3: 30 !default;
+$SelenniyaCore-FontSize-H4: 25 !default;
+$SelenniyaCore-FontSize-H5: 20 !default;
+$SelenniyaCore-FontSize-H6: 18 !default;
+$SelenniyaCore-FontSize-P: 14 !default;
+
+//  ★ Debug Variable, only used for testing purposes  
+$SelenniyaCore-DebugVariable: 60; // !default; 
+
+
+$SelenniyaCore-Counter-Style-System: cyclic;
+
+$SelenniyaCore-FontSize-H1-C: UnitConverter($SelenniyaCore-FontSize-H1);
+
+
+
+// *********************************************
+// *            Selenniya Functions            *
+// *********************************************
+
+// PX TO EM Internal Converter (supported units: em • rem • cm)  
+@function UnitConverter($DataToConvert : 0, $New-Unit-Type : "debug", $UnitBase: 16)
+
+{   /*doing nothing but still returning a value if the Unit Converter is not used */
+    @if $New-Unit-Type == "debug" 
+    {   
+        @return $DataToConvert ; 
+    }
+
+    /*  Pixel to Em Converter 
+        Math formula: em = pixel / base value (usually 16px) */
+    @else if $New-Unit-Type == "em" or $New-Unit-Type == "rem" 
+    {
+        @return calc($DataToConvert / $UnitBase) + $New-Unit-Type; 
+    }
+
+    /*  Pixel to cm Converter (🪙 This converter is for 96 PPI (screen), not DPI (printing))
+        Math formula: pixel * X */
+    @else if $New-Unit-Type == "cm"
+    {
+        @return calc($DataToConvert * (2.54 / 96) ) + $New-Unit-Type;
+    }
+}
+
+
+/*****************************************
+ *            Selenniya Root             *
+ *****************************************/
+
+/* CSS Variables are used so you can change some CSS variables without having to compile Selenniya-Beautify.scss */ 
+:root {
+
+    /* Debug CSS Variables | ⚠️ Do not use in a production environment */
+    --Selenniya-DebugVariable: #{$SelenniyaCore-FontSize-H1 + 0px}; 
+    --Selenniya-DebugVariable2: #{$SelenniyaCore-FontSize-H1};
+    --Selenniya-DebugVariable3: #{$SelenniyaCore-FontSize-H1-C};
+
+    @if $SelenniyaCore-Theme == "Selenniya" 
+    {
+        /*****************************************
+        *            Selenniya Themes            *
+        *****************************************/
+    
+        /* Selenniya Element Colors */
+        --Selenniya-Theme-Foreground: white; 
+        --Selenniya-Theme-Background: black;
+
+        --Selenniya-Theme-Image-Border: black; 
+        --Selenniya-Theme-Image-Shadow: black; 
+
+        /* Selenniya Buttons Properties */
+        --Selenniya-Theme-Button-A: linear-gradient(90deg, rgba(0,147,186,1) 0%, rgba(0,144,208,1) 14%, rgba(35,102,255,1) 53%, rgba(57,0,213,1) 84%, rgba(0,138,186,1) 100%);
+        --Selenniya-Theme-Button-B: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+
+        /* Selenniya Font Properties */
+        --Selenniya-Theme-Font-Color-h1: white; 
+        --Selenniya-Theme-Font-Color-h2: white; 
+        --Selenniya-Theme-Font-Color-h3: white; 
+        --Selenniya-Theme-Font-Color-h4: white; 
+        --Selenniya-Theme-Font-Color-h5: white; 
+        --Selenniya-Theme-Font-Color-h6: white; 
+        --Selenniya-Theme-Font-Color-p: white;
+        --Selenniya-Theme-Font-Family-h1: white;
+        --Selenniya-Theme-Font-Family-h2: white;
+        --Selenniya-Theme-Font-Family-h3: white;
+        --Selenniya-Theme-Font-Family-h4: white;
+        --Selenniya-Theme-Font-Family-h5: white;
+        --Selenniya-Theme-Font-Family-h6: white;
+        --Selenniya-Theme-Font-Family-p: white;
+
+        --Selenniya-Theme-Screen-Max-Width: 1920px;
+        --Selenniya-Theme-Screen-Max-Height: 1080px; 
+    }
+    @else if $SelenniyaCore-Theme == "Crimson"  
+    {
+        $SelenniyaCore-Background-Color-Radial: radial-gradient(center, crimson, darken(crimson, 80%)); 
+    } 
+    
+    @else if $SelenniyaCore-Theme == "Cloud"
+    {
+    
+    }
+    
+    $SelenniyaCore-Unit-Converter : false; 
+    /* Selenniya Font Variables (based on $SelenniyaCore-Unit) */
+    @if $SelenniyaCore-Unit-Converter == false
+    {
+        --Selenniya-Font-Size-h1: #{$SelenniyaCore-FontSize-H1}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h2: #{$SelenniyaCore-FontSize-H2}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h3: #{$SelenniyaCore-FontSize-H3}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h4: #{$SelenniyaCore-FontSize-H4}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h5: #{$SelenniyaCore-FontSize-H5}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h6: #{$SelenniyaCore-FontSize-H6}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-p:  #{$SelenniyaCore-FontSize-P}#{$SelenniyaCore-Unit-Type};
+    }
+    @else if  $SelenniyaCore-Unit-Converter == "em" 
+    {
+        --Selenniya-Font-Size-h1: #{$SelenniyaCore-FontSize-H1}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h2: #{$SelenniyaCore-FontSize-H2}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h3: #{$SelenniyaCore-FontSize-H3}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h4: #{$SelenniyaCore-FontSize-H4}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h5: #{$SelenniyaCore-FontSize-H5}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-h6: #{$SelenniyaCore-FontSize-H6}#{$SelenniyaCore-Unit-Type};
+        --Selenniya-Font-Size-p:  #{$SelenniyaCore-FontSize-P}#{$SelenniyaCore-Unit-Type};
+    }
+    @else 
+    {
+        --Selenniya-Font-Size-h1: #{SelenniyaCore-FontSize-H1}; 
+        --Selenniya-Font-Size-h2: #{SelenniyaCore-FontSize-H2}; 
+        --Selenniya-Font-Size-h3: #{SelenniyaCore-FontSize-H3}; 
+        --Selenniya-Font-Size-h4: #{SelenniyaCore-FontSize-H4}; 
+        --Selenniya-Font-Size-h5: #{SelenniyaCore-FontSize-H5}; 
+        --Selenniya-Font-Size-h6: #{SelenniyaCore-FontSize-H6};  
+        --Selenniya-Font-Size-p:  #{SelenniyaCore-FontSize-P}; 
+    }
+
+    --Selenniya-Counter-Style-System: #{$SelenniyaCore-Counter-Style-System}; 
+}
+
+/********************************************************************
+ *    Selenniya Reset to override Default User Agent Stylesheets    *
+ ********************************************************************/
+
+* {
+    box-sizing: border-box;
+    margin: 0; 
+    padding: 0; 
+    font: inherit; 
+}
+
+*::before, *::after {
+    box-sizing: border-box;
+}
+
+/**********************************************************
+*                 Selenniya Basics                 *
+***********************************************************/
+
+html.Selenniya {
+    /* Background Properties */ 
+    background-image: linear-gradient(90deg, rgba(0,9,91,1) 0%, rgba(1,25,124,1) 14%, rgba(0,27,140,1) 36%, rgba(0,6,126,1) 79%, rgba(0,9,91,1) 100%);
+
+    background-attachment: fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;  
+
+}
+
+body.Selenniya {
+    min-height: 100vh;  
+
+}
+
+
+
+.Selenniya-Menu {
+    display:flex;
+}
+/*************************************************
+*        Selenniya Menu Style #1 :: Metro        *
+**************************************************/
+
+%Selenniya-Menu-Metro-Text {
+    color: white; 
+    font-family: Garamond, serif;
+    font-size: 130%; 
+    font-weight: bold; 
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: capitalize;
+    text-align: center; 
+    text-shadow: 0px 0px 0 rgb(186,186,186),
+                1px 1px 0 rgb(127,127,127),
+                2px 2px 0 rgb(68,68,68),
+                3px 3px 4px rgba(0,0,0,0.85),
+                3px 3px 1px rgba(0,0,0,0.5),
+                0px 0px 2px rgba(0,0,0,.2);
+}
+
+
+.Selenniya-Menu-Metro ul {   
+    display:flex;
+    list-style-type: none; 
+    height: 8vh; 
+    gap: 1vw; 
+}
+    
+.Selenniya-Menu-Metro li {
+
+    border: var(--Selenniya-Theme-Border-A1); 
+    border-radius:6px; 
+    box-shadow: var(--Selenniya-Theme-Button-Shadow-A); 
+
+    background: var(--Selenniya-Theme-Button-A); 
+    
+    background-size: 300% 300%; 
+    clear: both; 
+    flex: 0 0 auto; 
+    z-index:10;
+
+    /* Background animation */
+    transition: all 1s ease; 
+    animation: Selenniya-Anim-Menu-Metro-NotHover 10s ease infinite; 
+
+    /* Font  */
+    @extend %Selenniya-Menu-Metro-Text;
+
+}
+
+/* This optional div tag can be used to add a picture (.png) on top of each button. The same image is applied to every button. */
+.Selenniya-Menu-Metro-Decoration {
+    position: absolute; 
+    width: 160px; 
+    height: 75px; 
+    background-image: var(--Selenniya-Menu-Theme-Button-Image); 
+    image-rendering: optimizeQuality;
+}
+
+.Selenniya-Menu-Metro li:hover {
+    position: relative;  
+    background: var(--Selenniya-Theme-Button-B);
+    background-size: 300% 300%; 
+    z-index:15;
+
+    border:1px solid #ffebb3; 
+    border-radius:14px; 
+    box-shadow: rgba(255, 251, 43, 0.76) 0 2px 4px,rgba(255, 169, 9, 0.781) 0 7px 13px -3px,rgba(255, 224, 46, 0.5) 0 -3px 0 inset;
+
+    /* Transitions & Animations */
+    transition: all 1s ease;  
+    transform: translate(0px, 10px) scale(1.3);  
+    animation: Selenniya-Anim-Menu-Metro-Hover 10s ease infinite;  
+} 
+
+.Selenniya-Menu-Metro li:not(:hover) {
+    z-index:7;
+    transition: all 3s ease-in-out; 
+    transform: translate(0px, 10px) scale(1.0); 
+}
+
+.Selenniya-Menu-Metro a {
+    @extend %Selenniya-Menu-Metro-Text;
+    text-decoration: none; 
+    height:100%;
+}
+
+@keyframes Selenniya-Anim-Menu-Metro-NotHover {
+
+    0% {	
+        background-position: 0% 50%; 
+        border: var(--Selenniya-Theme-Border-A1); 
+    }
+
+    50% {
+        background-position: 100% 50%; 
+        border: var(--Selenniya-Theme-Border-A2); 
+    }
+
+    100% {
+        background-position: 0% 50%; 
+        border: var(--Selenniya-Theme-Border-A1);  
+    }
+
+}
+
+@keyframes Selenniya-Anim-Menu-Metro-Hover {
+
+    0% 	{
+        box-shadow: 2px 3px 4px rgba(255, 229, 207, 0.3);
+        background-position: 0% 50%;
+    }
+
+    50% {
+        box-shadow: 1px 4px 5px rgba(236, 162, 3, 0.753);
+        background-position: 100% 50%;
+    }
+
+    100% {
+        box-shadow: 2px 3px 4px rgba(255, 231, 203, 0.3);
+        background-position: 0% 50%;
+    }
+
+}
+
+/*******************************************
+ *            Selenniya Buttons            *
+ *******************************************/
+
+.Selenniya-Button {
+    all: unset; /* Resetting default properties of a button tag */
+}
+
+/*******************************************
+ *            Selenniya Content            *
+ *******************************************/
+
+ /* SCSS Placeholder Selector to extend in any text selector */ 
+%Selenniya-Placeholder-Text {
+   /* color: var(--Selenniya-Theme-Font-Color-B); */ 
+}
+
+
+/*******************************************
+ *            Selenniya Content            *
+ *******************************************/
+// The user has flexible choices here: he can either use headings, paragraphs & text inside Selenniya-Content divs 
+// or use the specific class named after its general use. This can prevent misuse of Headings, paragraphs and other unwanted behaviors. 
+
+div.Selenniya-Content h1, .Selenniya-Heading-1 {
+    @extend %Selenniya-Placeholder-Text;
+
+    color: var(--Selenniya-Theme-Font-Color-h1); 
+    font-size: var(--Selenniya-Font-Size-h1); 
+    font-family:Verdana, Tahoma, sans-serif; 
+    font-weight:bold; 
+
+    text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 
+                 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15);
+    text-transform:capitalize; 
+}
+
+div.Selenniya-Content h2, .Selenniya-Heading-2 {
+    @extend %Selenniya-Placeholder-Text;
+
+    color: var(--Selenniya-Theme-Font-Color-h2); 
+} 
+
+div.Selenniya-Content h3, .Selenniya-Heading-3 {
+    @extend %Selenniya-Placeholder-Text;
+
+    color: var(--Selenniya-Theme-Font-Color-h3); 
+} 
+
+div.Selenniya-Content h4, .Selenniya-Heading-4 {
+    @extend %Selenniya-Placeholder-Text;
+
+    color: var(--Selenniya-Theme-Font-Color-h4); 
+} 
+
+div.Selenniya-Content h5, .Selenniya-Heading-5 {
+    @extend %Selenniya-Placeholder-Text;
+
+    color: var(--Selenniya-Theme-Font-Color-h5); 
+}
+
+div.Selenniya-Content h6, .Selenniya-Heading-6 {
+    @extend %Selenniya-Placeholder-Text;
+
+    color: var(--Selenniya-Theme-Font-Color-h6); 
+} 
+
+div.Selenniya-Content p, .Selenniya-Paragraph {
+    @extend %Selenniya-Placeholder-Text;
+    
+    font-family: Georgia,  serif;
+
+    /* Paragraph Display Properties */
+    color: var(--Selenniya-Theme-Font-Color-p);
+    
+}
+
+/* Counter-style at-rule to define custom counter styles (i.e., bullets) */
+@counter-style Selenniya-Counter-Style {
+    system: var(--Selenniya-Counter-Style-System); 
+    symbols: 🌀;
+    suffix: " ";  
+}
+
+div.Selenniya-Content ul {
+    list-style-type: Selenniya-Counter-Style; 
+}
+
+div.Selenniya-Content img {
+    border-color: var(--Selenniya-Theme-Image-Border); 
+}
+
+
+/************************************************
+ *            Selenniya Media Covers            *
+ ************************************************/
+
+img.Selenniya-Cover-Gaming-Generic {
+    height: 300px; 
+    width: 210px; 
+    margin: 15px; 
+    padding: 40px; 
+
+    border: 1px solid rgba(197, 151, 0, 0.815);
+    border-radius: 10px; 
+    box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+    object-fit: cover;
+
+    animation-name: Selenniya-Anim-Glowing-A;  
+    animation-duration: 10s; 
+    animation-direction: alternate; 
+    animation-iteration-count: infinite; 
+}
+
+img.Selenniya-Cover-Gaming-Generic:hover {
+    border: 2px solid rgb(255, 196, 0);
+    box-shadow:  0 0 4px 1px  rgba(255, 153, 0, 0.774),   0 0 15px rgba(255, 237, 136, 0.897);
+
+    transition: transform 300ms ease-in-out; 
+    transform: scale(1.2);  
+}
+
+img.Selenniya-Cover-Gaming-Generic:not(:hover) {
+    transition: transform 900ms ease-in-out; 
+    transform: scale(1.0); 
+}
+
+
+@keyframes Selenniya-Anim-Glowing-A {
+    0% {
+        border: 1px solid rgb(255, 255, 0);
+        box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+    }
+
+    25% {
+        border: 1px solid rgb(0,191,255);
+        box-shadow: 0 0 10px 1px rgba(255, 153, 0, 0.774);
+    }
+
+    75% {
+        border: 1px solid rgb(124,252,0);
+        box-shadow: 0 0 10px 1px rgba(0,100,0, 0.774);
+    }
+
+    100% {
+        border: 1px solid rgb(255, 0, 0);
+        box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+    }
+} 
+
+img.Selenniya-Cover-Gaming-PS1 {
+    color: black; 
+}
+
+
+
+
+// **************************************************
+// *       Selenniya Beautify Mobile Version         *
+// **************************************************
+
+@media screen and (width > 1080) {
+   .html {
+    background-color: red;
+   }
+}
+
+
+// ***********************************************************
+// *       Selenniya Beautify Website Print Version          *
+// ***********************************************************
+
+@media print { 
+
+    :root 
+    {
+        /* CSS Variables */ 
+        --MaxScreenWidth: 900px; 
+
+        --SelenColor_White-A: #FFFFFF; 
+        --SelenColor_Blue-B: #00008B; 
+        --SelenColor_Gold-B: #FFFFE0; 
+    }
+
+    html 
+    {
+        /* Background Properties */ 
+        background-image: white; 
+
+        background-attachment: fixed; 
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;  
+    }
+
+    /* Headers */ 
+
+    %SelenniyaTextA 
+    {
+        color: --SelenColor_Blue-B; 
+    }
+
+    p.SelenniyaText 
+    {
+        @extend %SelenniyaTextA; 
+        display: inline; 
+    }
+
+    h1.SelenniyaText 
+    {
+        @extend %SelenniyaTextA;  
+        display: block;  
+    }
+
+
+
+    /****************************
+    *          Covers          *
+    ****************************/
+
+    img.SelenniyaCover 
+    {
+        height: 300px; 
+        width: 210px; 
+        margin: 15px; 
+        padding: 40px; 
+
+        object-fit: cover;
+        border-radius: 10px; 
+
+        border: 1px solid rgba(197, 151, 0, 0.815);
+        box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+
+        animation-name: GameCasesGlowing;  
+        animation-duration: 10s; 
+        animation-direction: alternate; 
+        animation-iteration-count: infinite; 
+    }
+
+    img.SelenniyaCover:hover 
+    {
+        border: 2px solid rgb(255, 196, 0);
+        box-shadow:  0 0 4px 1px  rgba(255, 153, 0, 0.774),   0 0 15px rgba(255, 237, 136, 0.897);
+
+        transition: transform 300ms ease-in-out; 
+        transform: scale(1.2); 
+    }
+
+    img.SelenniyaCover:not(:hover)
+    {
+        transition: transform 900ms ease-in-out; 
+        transform: scale(1.0); 
+    }
+
+
+    @keyframes GameCasesGlowing 
+    {
+        0% {
+            border: 1px solid rgb(255, 255, 0);
+            box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+        }
+
+        25% {
+            border: 1px solid rgb(0,191,255);
+            box-shadow: 0 0 10px 1px rgba(255, 153, 0, 0.774);
+        }
+
+        75% {
+            border: 1px solid rgb(124,252,0);
+            box-shadow: 0 0 10px 1px rgba(0,100,0, 0.774);
+        }
+
+        100% {
+            border: 1px solid rgb(255, 0, 0);
+            box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+        }
+    } 
+
+
+
+    img.SelenniyaCover-PS1 {
+        color: black; 
+    }
+
+}

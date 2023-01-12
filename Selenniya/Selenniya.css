@@ -1,0 +1,477 @@
+@charset "UTF-8";
+/**************************************************************************************************************************
+ *                                                                                                                        *
+ *  ██████╗  ██████╗ ██╗     ██████╗  █████╗ ███╗   ██╗███╗   ██╗██╗██╗   ██╗ █████╗ ████████╗███████╗ ██████╗██╗  ██╗    *
+ * ██╔════╝ ██╔═══██╗██║     ██╔══██╗██╔══██╗████╗  ██║████╗  ██║██║╚██╗ ██╔╝██╔══██╗╚══██╔══╝██╔════╝██╔════╝██║  ██║    *
+ * ██║  ███╗██║   ██║██║     ██║  ██║███████║██╔██╗ ██║██╔██╗ ██║██║ ╚████╔╝ ███████║   ██║   █████╗  ██║     ███████║    *
+ * ██║   ██║██║   ██║██║     ██║  ██║██╔══██║██║╚██╗██║██║╚██╗██║██║  ╚██╔╝  ██╔══██║   ██║   ██╔══╝  ██║     ██╔══██║    *
+ * ╚██████╔╝╚██████╔╝███████╗██████╔╝██║  ██║██║ ╚████║██║ ╚████║██║   ██║   ██║  ██║   ██║   ███████╗╚██████╗██║  ██║    *
+ *  ╚═════╝  ╚═════╝ ╚══════╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═     *
+ *                                                                                                                        *
+ *        ➡️ Goldanniyatech is a 3D Software Dev & Self-Publishing Studio founded by Yoann AMAR ASSOULINE in 2021        *
+ *                                                                                                                        *
+ * Selenniya is a flexible CSS Preprocessor (SCSS) useful if various contexts                                             *
+ *                                                                                                                        *
+ * Conventions:                                                                                                           *
+ *   ➡️ SCSS Variable names start with $SelenniyaCore                                                                     *
+ *   ➡️ SCSS Comments are only made with double forward slashs (//) to remove them automatically from the final CSS       *
+ *   ➡️ CSS Variable names start with --Selenniya                                                                         *
+ **************************************************************************************************************************/
+/*****************************************
+ *            Selenniya Basics            *
+ *****************************************/
+/* CSS Variables are used so you can change some CSS variables without having to compile Selenniya-Beautify.scss */
+:root {
+  /* Debug CSS Variables | ⚠️ Do not use in a production environment */
+  --Selenniya-DebugVariable: 60px;
+  --Selenniya-DebugVariable2: 60;
+  --Selenniya-DebugVariable3: UnitConverter(60);
+  /*****************************************
+  *            Selenniya Themes            *
+  *****************************************/
+  /* Selenniya Element Colors */
+  --Selenniya-Theme-Foreground: white;
+  --Selenniya-Theme-Background: black;
+  --Selenniya-Theme-Image-Border: black;
+  --Selenniya-Theme-Image-Shadow: black;
+  /* Selenniya Buttons Properties */
+  --Selenniya-Theme-Button-A: linear-gradient(90deg, rgba(0,147,186,1) 0%, rgba(0,144,208,1) 14%, rgba(35,102,255,1) 53%, rgba(57,0,213,1) 84%, rgba(0,138,186,1) 100%);
+  --Selenniya-Theme-Button-B: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  /* Selenniya Font Properties */
+  --Selenniya-Theme-Font-Color-h1: white;
+  --Selenniya-Theme-Font-Color-h2: white;
+  --Selenniya-Theme-Font-Color-h3: white;
+  --Selenniya-Theme-Font-Color-h4: white;
+  --Selenniya-Theme-Font-Color-h5: white;
+  --Selenniya-Theme-Font-Color-h6: white;
+  --Selenniya-Theme-Font-Color-p: white;
+  --Selenniya-Theme-Font-Family-h1: white;
+  --Selenniya-Theme-Font-Family-h2: white;
+  --Selenniya-Theme-Font-Family-h3: white;
+  --Selenniya-Theme-Font-Family-h4: white;
+  --Selenniya-Theme-Font-Family-h5: white;
+  --Selenniya-Theme-Font-Family-h6: white;
+  --Selenniya-Theme-Font-Family-p: white;
+  --Selenniya-Theme-Screen-Max-Width: 1920px;
+  --Selenniya-Theme-Screen-Max-Height: 1080px;
+  /* Selenniya Font Variables (based on $SelenniyaCore-Unit) */
+  --Selenniya-Font-Size-h1: 60px;
+  --Selenniya-Font-Size-h2: 35px;
+  --Selenniya-Font-Size-h3: 30px;
+  --Selenniya-Font-Size-h4: 25px;
+  --Selenniya-Font-Size-h5: 20px;
+  --Selenniya-Font-Size-h6: 18px;
+  --Selenniya-Font-Size-p: 14px;
+  --Selenniya-Counter-Style-System: cyclic;
+}
+
+/********************************************************************
+ *    Selenniya Reset to override Default User Agent Stylesheets    *
+ ********************************************************************/
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+*::before, *::after {
+  box-sizing: border-box;
+}
+
+/**********************************************************
+*                 Selenniya Basics                 *
+***********************************************************/
+html.Selenniya {
+  /* Background Properties */
+  background-image: linear-gradient(90deg, rgb(0, 9, 91) 0%, rgb(1, 25, 124) 14%, rgb(0, 27, 140) 36%, rgb(0, 6, 126) 79%, rgb(0, 9, 91) 100%);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+body.Selenniya {
+  min-height: 100vh;
+}
+
+.Selenniya-Menu {
+  display: flex;
+}
+
+/*************************************************
+*        Selenniya Menu Style #1 :: Metro        *
+**************************************************/
+.Selenniya-Menu-Metro a, .Selenniya-Menu-Metro li {
+  color: white;
+  font-family: Garamond, serif;
+  font-size: 130%;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: capitalize;
+  text-align: center;
+  text-shadow: 0px 0px 0 rgb(186, 186, 186), 1px 1px 0 rgb(127, 127, 127), 2px 2px 0 rgb(68, 68, 68), 3px 3px 4px rgba(0, 0, 0, 0.85), 3px 3px 1px rgba(0, 0, 0, 0.5), 0px 0px 2px rgba(0, 0, 0, 0.2);
+}
+
+.Selenniya-Menu-Metro ul {
+  display: flex;
+  list-style-type: none;
+  height: 8vh;
+  gap: 1vw;
+}
+
+.Selenniya-Menu-Metro li {
+  border: var(--Selenniya-Theme-Border-A1);
+  border-radius: 6px;
+  box-shadow: var(--Selenniya-Theme-Button-Shadow-A);
+  background: var(--Selenniya-Theme-Button-A);
+  background-size: 300% 300%;
+  clear: both;
+  flex: 0 0 auto;
+  z-index: 10;
+  /* Background animation */
+  transition: all 1s ease;
+  -webkit-animation: Selenniya-Anim-Menu-Metro-NotHover 10s ease infinite;
+          animation: Selenniya-Anim-Menu-Metro-NotHover 10s ease infinite;
+  /* Font  */
+}
+
+/* This optional div tag can be used to add a picture (.png) on top of each button. The same image is applied to every button. */
+.Selenniya-Menu-Metro-Decoration {
+  position: absolute;
+  width: 160px;
+  height: 75px;
+  background-image: var(--Selenniya-Menu-Theme-Button-Image);
+  image-rendering: optimizeQuality;
+}
+
+.Selenniya-Menu-Metro li:hover {
+  position: relative;
+  background: var(--Selenniya-Theme-Button-B);
+  background-size: 300% 300%;
+  z-index: 15;
+  border: 1px solid #ffebb3;
+  border-radius: 14px;
+  box-shadow: rgba(255, 251, 43, 0.76) 0 2px 4px, rgba(255, 169, 9, 0.781) 0 7px 13px -3px, rgba(255, 224, 46, 0.5) 0 -3px 0 inset;
+  /* Transitions & Animations */
+  transition: all 1s ease;
+  transform: translate(0px, 10px) scale(1.3);
+  -webkit-animation: Selenniya-Anim-Menu-Metro-Hover 10s ease infinite;
+          animation: Selenniya-Anim-Menu-Metro-Hover 10s ease infinite;
+}
+
+.Selenniya-Menu-Metro li:not(:hover) {
+  z-index: 7;
+  transition: all 3s ease-in-out;
+  transform: translate(0px, 10px) scale(1);
+}
+
+.Selenniya-Menu-Metro a {
+  text-decoration: none;
+  height: 100%;
+}
+
+@-webkit-keyframes Selenniya-Anim-Menu-Metro-NotHover {
+  0% {
+    background-position: 0% 50%;
+    border: var(--Selenniya-Theme-Border-A1);
+  }
+  50% {
+    background-position: 100% 50%;
+    border: var(--Selenniya-Theme-Border-A2);
+  }
+  100% {
+    background-position: 0% 50%;
+    border: var(--Selenniya-Theme-Border-A1);
+  }
+}
+
+@keyframes Selenniya-Anim-Menu-Metro-NotHover {
+  0% {
+    background-position: 0% 50%;
+    border: var(--Selenniya-Theme-Border-A1);
+  }
+  50% {
+    background-position: 100% 50%;
+    border: var(--Selenniya-Theme-Border-A2);
+  }
+  100% {
+    background-position: 0% 50%;
+    border: var(--Selenniya-Theme-Border-A1);
+  }
+}
+@-webkit-keyframes Selenniya-Anim-Menu-Metro-Hover {
+  0% {
+    box-shadow: 2px 3px 4px rgba(255, 229, 207, 0.3);
+    background-position: 0% 50%;
+  }
+  50% {
+    box-shadow: 1px 4px 5px rgba(236, 162, 3, 0.753);
+    background-position: 100% 50%;
+  }
+  100% {
+    box-shadow: 2px 3px 4px rgba(255, 231, 203, 0.3);
+    background-position: 0% 50%;
+  }
+}
+@keyframes Selenniya-Anim-Menu-Metro-Hover {
+  0% {
+    box-shadow: 2px 3px 4px rgba(255, 229, 207, 0.3);
+    background-position: 0% 50%;
+  }
+  50% {
+    box-shadow: 1px 4px 5px rgba(236, 162, 3, 0.753);
+    background-position: 100% 50%;
+  }
+  100% {
+    box-shadow: 2px 3px 4px rgba(255, 231, 203, 0.3);
+    background-position: 0% 50%;
+  }
+}
+/*******************************************
+ *            Selenniya Buttons            *
+ *******************************************/
+.Selenniya-Button {
+  all: unset; /* Resetting default properties of a button tag */
+}
+
+/*******************************************
+ *            Selenniya Content            *
+ *******************************************/
+/* SCSS Placeholder Selector to extend in any text selector */
+div.Selenniya-Content p, .Selenniya-Paragraph, div.Selenniya-Content h6, .Selenniya-Heading-6, div.Selenniya-Content h5, .Selenniya-Heading-5, div.Selenniya-Content h4, .Selenniya-Heading-4, div.Selenniya-Content h3, .Selenniya-Heading-3, div.Selenniya-Content h2, .Selenniya-Heading-2, div.Selenniya-Content h1, .Selenniya-Heading-1 {
+  /* color: var(--Selenniya-Theme-Font-Color-B); */
+}
+
+/*******************************************
+ *            Selenniya Content            *
+ *******************************************/
+div.Selenniya-Content h1, .Selenniya-Heading-1 {
+  color: var(--Selenniya-Theme-Font-Color-h1);
+  font-size: var(--Selenniya-Font-Size-h1);
+  font-family: Verdana, Tahoma, sans-serif;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #CCCCCC, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+  text-transform: capitalize;
+}
+
+div.Selenniya-Content h2, .Selenniya-Heading-2 {
+  color: var(--Selenniya-Theme-Font-Color-h2);
+}
+
+div.Selenniya-Content h3, .Selenniya-Heading-3 {
+  color: var(--Selenniya-Theme-Font-Color-h3);
+}
+
+div.Selenniya-Content h4, .Selenniya-Heading-4 {
+  color: var(--Selenniya-Theme-Font-Color-h4);
+}
+
+div.Selenniya-Content h5, .Selenniya-Heading-5 {
+  color: var(--Selenniya-Theme-Font-Color-h5);
+}
+
+div.Selenniya-Content h6, .Selenniya-Heading-6 {
+  color: var(--Selenniya-Theme-Font-Color-h6);
+}
+
+div.Selenniya-Content p, .Selenniya-Paragraph {
+  font-family: Georgia, serif;
+  /* Paragraph Display Properties */
+  color: var(--Selenniya-Theme-Font-Color-p);
+}
+
+/* Counter-style at-rule to define custom counter styles (i.e., bullets) */
+@counter-style Selenniya-Counter-Style {
+  system: var(--Selenniya-Counter-Style-System);
+  symbols: 🌀;
+  suffix: " ";
+}
+div.Selenniya-Content ul {
+  list-style-type: Selenniya-Counter-Style;
+}
+
+div.Selenniya-Content img {
+  border-color: var(--Selenniya-Theme-Image-Border);
+}
+
+/************************************************
+ *            Selenniya Media Covers            *
+ ************************************************/
+img.Selenniya-Cover-Gaming-Generic {
+  height: 300px;
+  width: 210px;
+  margin: 15px;
+  padding: 40px;
+  border: 1px solid rgba(197, 151, 0, 0.815);
+  border-radius: 10px;
+  box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-animation-name: Selenniya-Anim-Glowing-A;
+          animation-name: Selenniya-Anim-Glowing-A;
+  -webkit-animation-duration: 10s;
+          animation-duration: 10s;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+img.Selenniya-Cover-Gaming-Generic:hover {
+  border: 2px solid rgb(255, 196, 0);
+  box-shadow: 0 0 4px 1px rgba(255, 153, 0, 0.774), 0 0 15px rgba(255, 237, 136, 0.897);
+  transition: transform 300ms ease-in-out;
+  transform: scale(1.2);
+}
+
+img.Selenniya-Cover-Gaming-Generic:not(:hover) {
+  transition: transform 900ms ease-in-out;
+  transform: scale(1);
+}
+
+@-webkit-keyframes Selenniya-Anim-Glowing-A {
+  0% {
+    border: 1px solid rgb(255, 255, 0);
+    box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+  }
+  25% {
+    border: 1px solid rgb(0, 191, 255);
+    box-shadow: 0 0 10px 1px rgba(255, 153, 0, 0.774);
+  }
+  75% {
+    border: 1px solid rgb(124, 252, 0);
+    box-shadow: 0 0 10px 1px rgba(0, 100, 0, 0.774);
+  }
+  100% {
+    border: 1px solid rgb(255, 0, 0);
+    box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+  }
+}
+
+@keyframes Selenniya-Anim-Glowing-A {
+  0% {
+    border: 1px solid rgb(255, 255, 0);
+    box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+  }
+  25% {
+    border: 1px solid rgb(0, 191, 255);
+    box-shadow: 0 0 10px 1px rgba(255, 153, 0, 0.774);
+  }
+  75% {
+    border: 1px solid rgb(124, 252, 0);
+    box-shadow: 0 0 10px 1px rgba(0, 100, 0, 0.774);
+  }
+  100% {
+    border: 1px solid rgb(255, 0, 0);
+    box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+  }
+}
+img.Selenniya-Cover-Gaming-PS1 {
+  color: black;
+}
+
+@media screen and (width > 1080) {
+  .html {
+    background-color: red;
+  }
+}
+@media print {
+  :root {
+    /* CSS Variables */
+    --MaxScreenWidth: 900px;
+    --SelenColor_White-A: #FFFFFF;
+    --SelenColor_Blue-B: #00008B;
+    --SelenColor_Gold-B: #FFFFE0;
+  }
+  html {
+    /* Background Properties */
+    background-image: white;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  /* Headers */
+  h1.SelenniyaText, p.SelenniyaText {
+    color: --SelenColor_Blue-B;
+  }
+  p.SelenniyaText {
+    display: inline;
+  }
+  h1.SelenniyaText {
+    display: block;
+  }
+  /****************************
+  *          Covers          *
+  ****************************/
+  img.SelenniyaCover {
+    height: 300px;
+    width: 210px;
+    margin: 15px;
+    padding: 40px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid rgba(197, 151, 0, 0.815);
+    box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+    -webkit-animation-name: GameCasesGlowing;
+            animation-name: GameCasesGlowing;
+    -webkit-animation-duration: 10s;
+            animation-duration: 10s;
+    -webkit-animation-direction: alternate;
+            animation-direction: alternate;
+    -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+  }
+  img.SelenniyaCover:hover {
+    border: 2px solid rgb(255, 196, 0);
+    box-shadow: 0 0 4px 1px rgba(255, 153, 0, 0.774), 0 0 15px rgba(255, 237, 136, 0.897);
+    transition: transform 300ms ease-in-out;
+    transform: scale(1.2);
+  }
+  img.SelenniyaCover:not(:hover) {
+    transition: transform 900ms ease-in-out;
+    transform: scale(1);
+  }
+  @-webkit-keyframes GameCasesGlowing {
+    0% {
+      border: 1px solid rgb(255, 255, 0);
+      box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+    }
+    25% {
+      border: 1px solid rgb(0, 191, 255);
+      box-shadow: 0 0 10px 1px rgba(255, 153, 0, 0.774);
+    }
+    75% {
+      border: 1px solid rgb(124, 252, 0);
+      box-shadow: 0 0 10px 1px rgba(0, 100, 0, 0.774);
+    }
+    100% {
+      border: 1px solid rgb(255, 0, 0);
+      box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+    }
+  }
+  @keyframes GameCasesGlowing {
+    0% {
+      border: 1px solid rgb(255, 255, 0);
+      box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+    }
+    25% {
+      border: 1px solid rgb(0, 191, 255);
+      box-shadow: 0 0 10px 1px rgba(255, 153, 0, 0.774);
+    }
+    75% {
+      border: 1px solid rgb(124, 252, 0);
+      box-shadow: 0 0 10px 1px rgba(0, 100, 0, 0.774);
+    }
+    100% {
+      border: 1px solid rgb(255, 0, 0);
+      box-shadow: 0 0 5px 1px rgba(255, 153, 0, 0.774);
+    }
+  }
+  img.SelenniyaCover-PS1 {
+    color: black;
+  }
+}/*# sourceMappingURL=Selenniya-Beautify.css.map */
