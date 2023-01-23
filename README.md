@@ -19,9 +19,6 @@ The following technologies are used in this repository:
 
 🌀 **Shadow Devil**: a **C#** textual adventure game.
 
-🌀 **Selenniya**, a non-opinionated Web SASS (**SCSS**) stylesheet, supporting 3 formats (Desktop, mobile-responsive and print), while keeping high-level animations. Only the CSS Reset is always applied when importing the stylesheet. It comes in two versions: Selenniya and Selenniya-Minified for performance (generated with a Python script). 
+🌀 **Selenniya**: a non-opinionated Web SASS (**SCSS**) stylesheet, supporting 3 formats (Desktop, mobile-responsive and print), while keeping high-level animations. Only the CSS Reset is always applied when importing the stylesheet. It comes in two versions: Selenniya and Selenniya-Minified for performance (generated with a Python script). 
 
 🌀 **Warriors Journey**: a **Python** textual adventure game. 
-
-
-
