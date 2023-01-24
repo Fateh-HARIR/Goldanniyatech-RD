@@ -18,7 +18,7 @@ Old technologies might be used in some projects (like MaxScript scripting langua
 
 🌀 **Legendary Warlord**: a **C & C++** textual adventure game. 
 
-🚧 **Royal Palace**: a deprecated **Panda3D** minigame project, written in **Python**. 
+🚧 **Royal Palace**: a deprecated minigame project using the **Panda3D** game engine with the **Python** language. 
 
 🌀 **Shadow Devil**: a **C#** textual adventure game.
 
