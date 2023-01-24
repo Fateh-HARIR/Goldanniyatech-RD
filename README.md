@@ -14,7 +14,7 @@ The following technologies are currently supported in this repository:
 - **Game Engines**: Unity • Unreal Engine
 Old technologies might be used in some projects (like MaxScript scripting language or Panda3D engine), but those are deprecated projects, not supported at all. 
  
-## Current Projects Overview
+## Projects Overview
 
 🌀 **Legendary Warlord**: a **C & C++** textual adventure game. 
 
