@@ -9,16 +9,21 @@ The **Goldanniyatech Research & Development** monorepository contains multiple p
 - **Game Development Tools** using popular game engines (Unreal and Unity) to test multiple functionalities, 
 - **Web Development** projects.  
 
-The following technologies are used in this repository: 
-- **Programming Languages**: C • C++ • C# • Python • SCSS (CSS)
+The following technologies are currently supported in this repository: 
+- **Programming Languages**: C • C++ • C# • Python
 - **Game Engines**: Unity • Unreal Engine
+Old technologies might be used in some projects (like MaxScript scripting language or Panda3D engine), but those are deprecated projects, not supported at all. 
  
 ## Current Projects Overview
 
 🌀 **Legendary Warlord**: a **C & C++** textual adventure game. 
 
+🚧 **Royal Palace**: a deprecated **Panda3D** minigame project, written in **Python**. 
+
 🌀 **Shadow Devil**: a **C#** textual adventure game.
 
-🌀 **Selenniya**: a non-opinionated Web SASS (**SCSS**) stylesheet, supporting 3 formats (Desktop, mobile-responsive and print), while keeping high-level animations. Only the CSS Reset is always applied when importing the stylesheet. It comes in two versions: Selenniya and Selenniya-Minified for performance (generated with a Python script). 
+🌀 **Selenniya**: a Web SASS (**SCSS**) stylesheet, supporting 3 formats (Desktop, mobile-responsive and print), while keeping high-level animations. Only the CSS Reset is always applied when importing the stylesheet. It comes in two versions: Selenniya and Selenniya-Minified for performance (generated with a Python script). 
+
+🚧 **Tiger Tools**: a deprecated set of scripts for **Blender (Python)** and **3DS Max (MaxScript)**, used for various purposes. 
 
 🌀 **Warriors Journey**: a **Python** textual adventure game. 
