@@ -1,5 +1,5 @@
 #################################
-# Python Pocket Guide - 01 Code #
+# Python Pocket Card - 01 Code #
 #################################
 
 # Reference
@@ -15,19 +15,34 @@
 # Multi-line commetaries
 # with the hash mark. 
 
-""" Single line Docstring comment """
 
-""" Multi-line 
-    DocString 
-    Comments
+""" Single line Docstring Comment """
+
+""" Multi-line Docstring Comment
+    Note: the autoDocstring VSCode extension can be used 
+          to automatically generate docstrings
 """
 
 #######################
 # 01 Basic Data Types 
 #######################
 
-integer_example_one = 33
-integer_example_two = 30594
+boolean_one = True
+boolean_two = False
+boolean_three = bool(True)
 
-float_example_one = 30.3
-float_example_two = 4930.45
+integer_one = 33
+integer_two = 30594
+integer_three = int(4930)
+
+float_one = 30.3
+float_two = 4930.45
+float_three = float(458.78)
+
+complex_number_one = 2 + 3j
+complex_number_one = complex(3 + 2j)
+
+string_one = "Jonesy"
+string_two = 'Ramirez'
+string_three = "Hello, Select your character!"
+string_four = str(string_two + ", " + "Game Over!")
