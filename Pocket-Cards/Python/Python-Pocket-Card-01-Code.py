@@ -46,3 +46,20 @@ string_one = "Jonesy"
 string_two = 'Ramirez'
 string_three = "Hello, Select your character!"
 string_four = str(string_two + ", " + "Game Over!")
+
+#######################
+# 01 Functions  
+#######################
+ 
+def check_variable_type(variable_to_check): 
+    """ Function to check any variable type, with one argument (variable_to_check) """ 
+    return type(variable_to_check)
+
+# Function Calls
+print(check_variable_type(boolean_two))
+print(check_variable_type(boolean_two))
+print(check_variable_type(float_one))
+print(check_variable_type(string_three))
+
+# Print the docstring
+print(check_variable_type.__doc__)
