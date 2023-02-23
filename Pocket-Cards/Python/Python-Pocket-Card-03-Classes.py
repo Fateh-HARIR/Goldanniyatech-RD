@@ -1,36 +1,65 @@
-###################################
-# Python Pocket Card - 02 Classes #
-###################################
-# Classes & Modules
+###########################################
+#                                         #
+#    Python Pocket Card 03 Classes        #
+#                                         #
+#         By Yoann AMAR ASSOULINE         #
+#                                         #
+###########################################  
 
 # Built-in Modules 
 import os
+import platform
 import sys
 
 
 #################################
-# Basic Classes
+# 01 💻 Basic Classes
 #################################
 
-class Animals: 
-    """ Class without arguments to create any kind of animal """
+# Basic Class 01 
+class Animal: 
+    """ Docstring to document the whole Class """
 
-    # The built-it __init__ function is always executed when the class is initiated
+    # The constructor is always executed when the class is initiated! 
     def __init__(self): 
+        """ Docstring to document any function (including the built-in __init__ function) """
         pass # Statement to use as a placeholder. 
 
 # Objects Instantiation
-Dolphin = Animals()
-Dinosaur = Animals() 
+Dolphin = Animal()
+Dinosaur = Animal() 
 
 
+# Basic Class 02 
+class Fruit: 
+    """ Fruit Class """
+
+    # Class variables shared by all instances  
+    category="Fruit"
+
+    def __init__(self, name_arg, quantity_arg = 1): 
+        """ """
+        # Instance variable unique to each instance 
+        self.name = name_arg
+        self.quantity = quantity_arg
+    
+    def show_name(self):
+        return print(self.name) 
+
+apple = Fruit("Golden")
+strawberry = Fruit("Allstar", 3)
+cherry = Fruit("Early Lory")
+apple.show_name() 
+cherry.show_name()
+print(Fruit.category)
+print(Fruit.name)
+
+# Basic Class 03
 class Vehicles: 
     """ Vehicle Class """
     
-    # Variable initialization
-    vehicle_name = ""
-    vehicle_seats = 0 
-    vehicle_transmission = ""
+    # Class Variables 
+    Category = "Vehicle"  
 
     # Class constructor
     def __init__ (self, carName, carSeats, carTransmission): 
@@ -56,6 +85,6 @@ class Vehicles:
 
 
 Lamborghini = Vehicles("Lamborghini", 2, "Auto")
-Lamborghini.showVehicleInformation() 
+#Lamborghini.showVehicleInformation() 
 
 

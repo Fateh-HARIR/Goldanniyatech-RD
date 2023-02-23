@@ -1,6 +1,6 @@
 ###########################################
 #                                         #
-#    Python Pocket Card 01 Functions      #
+#    Python Pocket Card 02 Functions      #
 #                                         #
 #         By Yoann AMAR ASSOULINE         #
 #                                         #
