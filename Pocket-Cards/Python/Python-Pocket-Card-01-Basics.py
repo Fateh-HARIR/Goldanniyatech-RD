@@ -143,4 +143,18 @@ if (integer_five < integer_six):
 # 06 💻 Loops #
 ################
 
+# For Looop 
 
+vehicles = ("car", "bus", "train")
+
+for x in vehicles: 
+    print("For Loop x: " + str(x))
+
+# While Loop 
+
+i = 1 
+n = 10
+
+while i < n: 
+    print ("While Loop i: " + str(i))
+    i += 1
