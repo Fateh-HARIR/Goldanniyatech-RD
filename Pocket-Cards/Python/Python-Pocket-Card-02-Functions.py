@@ -10,15 +10,16 @@
 import os
 import sys
 
-boolean_two = True 
-float_one = 34.5
-string_three = "test"
+# Variables
+chest_is_open = True  
+player_name = "Jonesy"
 
 player_health = 100 
+player_shield = 205.34
 
-#######################
-# 07 Functions Basics
-#######################
+##########################
+# 01 💻 Functions Basics #
+##########################
  
 # Simple Function writing
 def simple_function(): 
@@ -40,10 +41,9 @@ def check_variable_type(variable_to_check):
     return type(variable_to_check)
 
 # Function Calls
-print(check_variable_type(boolean_two))
-print(check_variable_type(boolean_two))
-print(check_variable_type(float_one))
-print(check_variable_type(string_three))
+print(check_variable_type(chest_is_open))
+print(check_variable_type(player_name))
+print(check_variable_type(player_shield))
 
 # Print the docstring
 print(check_variable_type.__doc__)

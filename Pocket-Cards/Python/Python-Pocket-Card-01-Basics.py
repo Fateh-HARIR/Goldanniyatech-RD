@@ -13,7 +13,7 @@
 
 
 #######################
-# 00 - Commentaries
+# 00 💻 Commentaries #
 #######################
 
 # Single-line Commentaries 
@@ -29,22 +29,26 @@
           to automatically generate docstrings
 """
 
-#######################
-# 01 - Built-in Modules 
-#######################
+##########################
+# 01 💻 Built-in Modules #
+##########################
 
 import os
 import platform
 import sys
 
-# Clearing the Terminal
+# Clearing the Terminal by using the os imported module
 os.system('cls')
 
+# Displaying the current Operating System by using the platform module
+print("Current Platform: " + str(platform.platform()))
 
-#######################
-# 02 Basic Data Types 
-#######################
 
+############################### 
+#  02 💻 Basic Data Types    #
+###############################
+
+# Simple Variables: Theory
 none_01 = None
 
 boolean_one = True
@@ -71,25 +75,42 @@ string_four = str(string_two + ", " + "Game Over!")
 string_five = '🦁'
 string_six = "453.5"
 
+# Collection of Variables: Theory
+list_one = ["item one", "item two", "item three"]
+
+tuple_one = ("item one", "item two", "item three")
+
+set_one = {"item one", "item two", "item three"}
+
+dictionary_one = {
+        "key one"   : "value one", # one item is comprised of a key and a value
+        "key two"   : "value two", 
+        "key three" : "value three"
+}
+
+
 # Variables: Real-life Examples
 player_health = 100
 player_shield = 150.5
 player_total_life = player_health + player_shield
 
-player_name = "Jonesy"
+player_name = "Jonesy" 
 character_select_sentence = "Select your character!"
 
-###########################
-# 03 Basic Data Operations  
-###########################
+enemies = ["Alien", "Zombie"]
+allies = ("Ramirez", "Amy")
+
+###############################
+# 03 💻 Basic Data Operations #
+###############################
 
 # PEMDAS
 math_operation_01 = 12 + (5 * 4^3 - 6)
 print ("math_operation_01: " + str(math_operation_01))
 
-#############################
-# 04 Basic String Operations  
-#############################
+#################################
+# 04 💻 Basic String Operations #
+#################################
 
 # String Escape Sequences 
 print('🔴 Escape Sequence Start')
@@ -100,9 +121,10 @@ print('\r Carriage Return \t  Horizontal tab')
 print("🔴 Escape Sequence End")
 
 
-#######################
-# 05 CONDITIONAL STATMENTS  
-#######################
+################################
+# 05 💻 Conditional Statements # 
+################################
+
 
 boolean_four = False 
 
@@ -116,7 +138,9 @@ integer_six = 60
 if (integer_five < integer_six): 
     print("Higher") 
 
-#######################
-# 07 Loops  
-#######################
+
+################
+# 06 💻 Loops #
+################
+
 
