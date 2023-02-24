@@ -22,13 +22,43 @@ public class Main {
     String string_one = "Hi there!";
     String[] string_array =  {"array element 1", "Array Element 2", "Array Element 3"};
 
+    // Type Conversion/ Widening Conversion (converting smaller type to larger type)
+    double old_int = int_one;
+
+    String old_float = Float.toString(float_one);
+
+    // Type Casting/ Narrowing Casting (converting large type to smaller type)
+    int old_float_int = (int) float_one;
+
     public static void main(String[] args) {
 
         System.out.println("Hello world!");
 
-        // Create a new object
-        Main object_one = new Main();
-        System.out.println(object_one.double_one);
+        // Create a new object from Main
+        Main Main_Instance_One = new Main();
+        System.out.println(Main_Instance_One.double_one);
+
+        // Creating another object from Basics
+        Basics Basics_Instance_One = new Basics();
+        Basics_Instance_One.Basics_Method_One();
+        int result = Basics_Instance_One.CheckNumber(4);
+        System.out.println("Result of Basics CheckNumber: " + result); 
+    }
+
+}
+
+
+class Basics {
+    Basics() {
+        System.out.println("test");
+    }
+
+    void Basics_Method_One() {
+        System.out.println("another test");
+    }
+
+    public static int CheckNumber(int my_int) {
+        return 20 + my_int;
     }
 }
 
